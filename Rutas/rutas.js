@@ -5,6 +5,10 @@ router
     .get('/login', (req,res)=>{
         res.sendFile(path.join(__dirname, '../vistas/login.html'))
     })
+    .get('/registro',(req,res)=>{
+         res.sendFile(path.join(__dirname, '../vistas/registro.html'))
+    })
+
 
 //No borrar
 /*
