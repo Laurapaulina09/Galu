@@ -10,7 +10,10 @@ router
     .get ('/registro',(req,res)=>{
         res.sendFile(path.join(__dirname,'../vistas/Registro.html'))
     })
-    .post("/datosNuevoUsuario", )
+    .post("/datosNuevoUsuario",()=>{
+        
+    } )
+
 
 //No borrar
 /*
