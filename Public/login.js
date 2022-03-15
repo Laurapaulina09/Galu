@@ -6,13 +6,10 @@ form.addEventListener("submit",function(event){
     var correo = document.getElementById('email'),
         contrasena = document.getElementById("password")
     if(correo.value.length > 5 && contrasena.value.length > 5){
-        alert('enviaremos tu login')
-        
-        
-
+        alert('enviaremos tu login')           
     }else{
         let alerta =document.getElementById("alerta")
-        alerta.innerHTML='Valida que la informacion sea la correcta'
+        alerta.innerHTML='Tanto el correo como la contraseña deben tener mas de 5 carácteres'
     }
   })
 

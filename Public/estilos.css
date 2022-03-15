@@ -60,6 +60,18 @@ input[type="password"]{
     margin-bottom: 15px;
     border: 1px solid #aaa;
 }
+.input-contenedor small{
+visibility:hidden;
+position:absolute;
+bottom:0;
+left:0
+}
+.input-contenedor sucess{
+    visibility:hidden;
+    position:absolute;
+    bottom:0;
+    left:0
+ }
 .icon{
     min-width: 50px;
     text-align: center;
