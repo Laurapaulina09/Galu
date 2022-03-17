@@ -1,18 +1,11 @@
 var form = document.getElementById('RegistroForm');
-button = document.getElementById('RegButtom');
-nombre = document.getElementById('Regnombre');
-correo = document.getElementById('RegCorreo');
-password = document.getElementById('RegPassword');
-Telefono = document.getElementById('RegTlf');
-Error_element = document.getElementById('Error');
-
 function validateEmail(email) {
   emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
   //Se muestra un texto a modo de ejemplo, luego va a ser un icono
-  if (emailRegex.test(email.value)) {
-    alert("Email correcto");
+  if (emailRegex.test(email)) {
+  return true;
   } else {
-    alert("Introduzca un email válido");
+    return false;
   }
 };
 form.addEventListener('submit', (e) => {
@@ -21,19 +14,22 @@ form.addEventListener('submit', (e) => {
 }
 );
 function validateName(name) {
-  if (name.value.lenght <= 2) {
+  if (name=="" || name.lenght<3) {
     return false;
   }
   return true;
 }
 function validatePassword(passwd) {
+  var passwdFormat=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
   if (passwd.lenght < 7) {
+    return false;
+  }
+  if (!passwd.match(passwdFormat)) {
     return false;
   }
   return true;
 }
 function validateTlf(phone) {
-  var phone_ok = false;
   var phoneformat = /^\d{10}$/;
   if (phone.lenght < 6) {
     return false;
@@ -44,16 +40,22 @@ function validateTlf(phone) {
   return true;
 }
 function checkInputs() {
-  const username = nombre.value.trim();
-  const email = correo.value.trim();
-  const passwd = password.value.trim();
+button = document.getElementById('RegButtom');
+nombre = document.getElementById('Regnombre');
+correo = document.getElementById('RegCorreo');
+password = document.getElementById('RegPassword');
+Telefono = document.getElementById('RegTlf');
+Error_element = document.getElementById('Error');
+  const username = nombre.value;
+  const email = correo.value;
+  const passwd = password.value;
   const tlf = Telefono.value.trim();
-  let NombreOK = validateName(nombre);
-  let emailOk = validateEmail(correo);
-  let passwdOk = validatePassword(password);
-  let tlfOK = validateTlf(tlf);
+  let NombreOK = validateName(nombre.value.trim());
+  let emailOk = validateEmail(correo.value.trim());
+  let passwdOk = validatePassword(password.value.trim());
+  let tlfOK = validateTlf(Telefono.value.trim());
   if (!NombreOK) {
-    setErrorForm(nombre, "Nombre requerido")
+    setErrorForm(nombre, "Nombre debe tener 3 carácteres o más")
   } else {
     setSucessForm(nombre);
   }
@@ -63,7 +65,7 @@ function checkInputs() {
     setSucessForm(correo)
   }
   if (!passwdOk) {
-    setErrorForm(password, "Introduzca una contraseña con 6 o más carácteres")
+    setErrorForm(password, "Introduzca una contraseña con 8 y 15 carácteres que tenga una letra en minúscula, mayuscula y un caracter ")
   } else {
     setSucessForm(password)
   }
@@ -73,20 +75,20 @@ function checkInputs() {
     setSucessForm(Telefono)
   }
   if (NombreOK && emailOk && passwdOk && tlfOK) {
-    alert("Registro Completado");
+    CreateJson(nombre,correo,password,Telefono)
   }
 }
-//var form = document.getElementById('RegistroForm');
-//button=document.getElementById('RegButtom');
-//nombre=document.getElementById('Regnombre');
-//correo=document.getElementById('RegCorreo');
-//password=document.getElementById('RegPassword');
-//Telefono=document.getElementById('RegTlf');
-//Error_element=document.getElementById('Error');
+function CreateJson(username,email,passwd,phone){ 
+  var FormSucessfull={nombre:username.value,correo:email.value,contraseña:passwd.value,telefono:phone.value}
+ // console.log(FormSucessfull);
+  enviarFormulario(FormSucessfull);
+  alert("Registro Completado");
+}
 function setErrorForm(input, message) {
   const formControl = input.parentElement;
   const smallError = document.querySelector('small');
-  smallError.innerText = message;
+  //smallError.innerText = message;
+  alert(message);
   formControl.classList.add('input-contenedor');
   formControl.className='input-contenedor small';
 }
@@ -94,12 +96,10 @@ function setSucessForm(input) {
   const formControl = input.parentElement;
   formControl.classList.add('input-contenedor');
    formControl.className='input-contenedor sucess';
-   input.value="";
-   var FormSucessfull={name:nombre.value,email:correo.value,telefono:Telefono,contraseña:password.value}
 }
 async function enviarFormulario(data ) {
   // Opciones por defecto estan marcadas con un *
-  const response = await fetch('/iniciarSesion', {
+  const response = await fetch('/datosNuevoUsuario', {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // opcional
     cache: 'no-cache', // opcional
@@ -113,8 +113,3 @@ async function enviarFormulario(data ) {
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
-
-postData('https://example.com/answer', { answer: 42 })
-  .then(data => {
-    console.log(data); // JSON data parsed by `data.json()` call
-  });
