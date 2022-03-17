@@ -20,6 +20,7 @@ router
         console.log(datos)
     
     })
+    .post("/In")
 
 
 //No borrar
