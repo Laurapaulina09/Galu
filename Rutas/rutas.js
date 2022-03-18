@@ -1,6 +1,6 @@
 const req = require("express/lib/request")
 const res = require("express/lib/response")
-
+var conectar = require("../modelo/datosb")
 var express = require("express"),
     path = require('path'),
     router = express.Router()
@@ -18,7 +18,11 @@ router
             pass: req.body.contrasena,
             phone: req.body.telefono
         }
-        console.log(datos)
+        conectar.almacenarUsuario(dato,() => {
+            res.send('usuario Registrado')
+        }
+        )
+
 
     })
     .post('/Iniciarsesion', (req, res) => {
