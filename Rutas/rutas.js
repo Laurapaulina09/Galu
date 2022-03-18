@@ -18,7 +18,7 @@ router
             pass: req.body.contrasena,
             phone: req.body.telefono
         }
-        conectar.almacenarUsuario(dato,() => {
+        conectar.almacenarUsuario(datos,() => {
             res.send('usuario Registrado')
         }
         )
@@ -31,7 +31,19 @@ router
             pass: req.body.contrasena
         }
         console.log(datos)
+        conectar.verificarUsuario(datos,(usuario)=>{
+            if (usuario.length==1)
+            {
+                res.send('usuario si existe')
+            }else {
+                res.send('usuario no existe')
+            }
+        })
     })
+    
+
+
+
 
 
 //No borrar
