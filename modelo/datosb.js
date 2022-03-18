@@ -17,12 +17,19 @@ Conexion.almacenarUsuario= (datos,cb) => {
 }
 
 Conexion.verificarUsuario = (datos,cb) => {
-conectar.query(`SELECT * from usuarios WHERE correo = "${datos.email}" and contraseña = "${datos.pass}"` , function(err, res){
+//conectar.query(`SELECT * from usuarios WHERE correo = "${datos.email}" and contraseña = "${datos.pass}"` , function(err, res){
+    var sql=`SELECT * FROM usuarios WHERE correo ="${datos.email}"  and contraseña="${datos.pass}"`;
+    conectar.query(sql,function(err,res){
     if(err){
-        console.log(err)
+        console.log("ALERTA ERROR EN VERIFICAR USUARIO")
+        console.log(err);
+        throw err;
     }
     else{
-        cb(res)
+     
+            cb(res)
+           
+        
     }
 })
 

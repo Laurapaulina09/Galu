@@ -38,19 +38,23 @@ form.addEventListener("submit", function (event) {
 })
 function CreateJson(email, passwd) {
   var formSucessfull = { "correo": email.value, "contrasena": passwd.value }
-  // console.log(FormSucessfull);
-  var inicio_Sesion = enviarFormulario('/Iniciarsesion', formSucessfull);
-  if (inicio_Sesion == 'usuario si existe') {
-    alert("Registro Completado");
+  var inicio_Sesion = enviarFormulario('/Iniciarsesion', formSucessfull)
+  .then(response=>
+    {
+      if (response.mensaje == 'usuario si existe') {
+        alert("El usuario se encuentra registrado");
+      }
+      else { 
+        alert("el usuario no se encuentra registrado")
+      }
   }
-  else {
-    alert("el usuario no se encuentra registrado")
-  }
+  )
+  
 
 
 }
 
-async function enviarFormulario(url = '', data = {}) {
+async function enviarFormulario(url, data ) {
   // Opciones por defecto estan marcadas con un *
   const response = await fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.

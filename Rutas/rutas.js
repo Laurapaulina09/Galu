@@ -30,14 +30,23 @@ router
             email: req.body.correo,
             pass: req.body.contrasena
         }
-        console.log(datos)
+        //console.log(datos)
         conectar.verificarUsuario(datos,(usuario)=>{
-            if (usuario.length==1)
-            {
-                res.send('usuario si existe')
-            }else {
-                res.send('usuario no existe')
+            if (usuario[0].correo=="USUARIO_NO_EXISTE" && usuario[0].contrasena=="USUARIO_NO_EXISTE" ){
+                var usuarioNoExiste={mensaje:'usuario no existe'}
+                res.send(usuarioNoExiste);
+            }else{
+                if (usuario[0].nombre.length>1)
+                {
+                    console.log("USUARIO="+usuario[0].nombre)
+                    var usuarioExiste={mensaje:'usuario si existe'}
+                    res.send(usuarioExiste)
+
             }
+            }
+
+                     
+                     
         })
     })
     
