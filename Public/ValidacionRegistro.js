@@ -3,7 +3,7 @@ function validateEmail(email) {
   emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
   //Se muestra un texto a modo de ejemplo, luego va a ser un icono
   if (emailRegex.test(email)) {
-  return true;
+    return true;
   } else {
     return false;
   }
@@ -14,13 +14,13 @@ form.addEventListener('submit', (e) => {
 }
 );
 function validateName(name) {
-  if (name=="" || name.lenght<3) {
+  if (name == "" || name.lenght < 3) {
     return false;
   }
   return true;
 }
 function validatePassword(passwd) {
-  var passwdFormat=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+  var passwdFormat = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
   if (passwd.lenght < 7) {
     return false;
   }
@@ -40,12 +40,12 @@ function validateTlf(phone) {
   return true;
 }
 function checkInputs() {
-button = document.getElementById('RegButtom');
-nombre = document.getElementById('Regnombre');
-correo = document.getElementById('RegCorreo');
-password = document.getElementById('RegPassword');
-Telefono = document.getElementById('RegTlf');
-Error_element = document.getElementById('Error');
+  button = document.getElementById('RegButtom');
+  nombre = document.getElementById('Regnombre');
+  correo = document.getElementById('RegCorreo');
+  password = document.getElementById('RegPassword');
+  Telefono = document.getElementById('RegTlf');
+  Error_element = document.getElementById('Error');
   const username = nombre.value;
   const email = correo.value;
   const passwd = password.value;
@@ -75,17 +75,24 @@ Error_element = document.getElementById('Error');
     setSucessForm(Telefono)
   }
   if (NombreOK && emailOk && passwdOk && tlfOK) {
-    CreateJson(nombre,correo,password,Telefono)
+    CreateJson(nombre, correo, password, Telefono)
   }
 }
-function CreateJson(username,email,passwd,phone){ 
-  var FormSucessfull={nombre:username.value,
-    correo:email.value,
-    contrasena:passwd.value,
-    telefono:phone.value}
- // console.log(FormSucessfull);
-  enviarFormulario(FormSucessfull);
-  alert("Registro Completado");
+function CreateJson(username, email, passwd, phone) {
+  var FormSucessfull = {
+    nombre: username.value,
+    correo: email.value,
+    contrasena: passwd.value,
+    telefono: phone.value
+  }
+  // console.log(FormSucessfull);
+  var send_Form=enviarFormulario(FormSucessfull);
+  if (send_Form='usuario Registrado')
+  {
+    alert("Registro Completado");
+  } else{
+    alert("No se pudo completar el registro")
+  } 
 }
 function setErrorForm(input, message) {
   const formControl = input.parentElement;
@@ -93,14 +100,14 @@ function setErrorForm(input, message) {
   //smallError.innerText = message;
   alert(message);
   formControl.classList.add('input-contenedor');
-  formControl.className='input-contenedor small';
+  formControl.className = 'input-contenedor small';
 }
 function setSucessForm(input) {
   const formControl = input.parentElement;
   formControl.classList.add('input-contenedor');
-   formControl.className='input-contenedor sucess';
+  formControl.className = 'input-contenedor sucess';
 }
-async function enviarFormulario(data ) {
+async function enviarFormulario(data) {
   // Opciones por defecto estan marcadas con un *
   const response = await fetch('/datosNuevoUsuario', {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
