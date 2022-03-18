@@ -79,7 +79,10 @@ Error_element = document.getElementById('Error');
   }
 }
 function CreateJson(username,email,passwd,phone){ 
-  var FormSucessfull={nombre:username.value,correo:email.value,contraseña:passwd.value,telefono:phone.value}
+  var FormSucessfull={nombre:username.value,
+    correo:email.value,
+    contrasena:passwd.value,
+    telefono:phone.value}
  // console.log(FormSucessfull);
   enviarFormulario(FormSucessfull);
   alert("Registro Completado");
