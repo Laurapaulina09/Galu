@@ -15,4 +15,4 @@ Conexion.almacenarUsuario= (datos,cb) => {
     })
 }
 
-
+module.exports = Conexion;
