@@ -17,7 +17,7 @@ Conexion.almacenarUsuario= (datos,cb) => {
 }
 
 Conexion.verificarUsuario = (datos,cb) => {
-conectar.query(`SELECT * from usuarios WHERE correo = "${datos.email}" and password = "${datos.pass}"` , function(err, res){
+conectar.query(`SELECT * from usuarios WHERE correo = "${datos.email}" and contraseña = "${datos.pass}"` , function(err, res){
     if(err){
         console.log(err)
     }
