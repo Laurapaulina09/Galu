@@ -37,9 +37,9 @@ form.addEventListener("submit",function(event){
     }
   })
   function CreateJson(email,passwd){ 
-    var FormSucessfull={"correo":email.value,"contraseña":passwd.value}
+    var FormSucessfull={"correo":email.value,"contrasena":passwd.value}
    // console.log(FormSucessfull);
-    enviarFormulario('/Iniciar sesión',FormSucessfull);
+    enviarFormulario('/Iniciarsesion',FormSucessfull);
     alert("Registro Completado");
   }
 

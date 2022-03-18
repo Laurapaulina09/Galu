@@ -1,4 +1,5 @@
 const req = require("express/lib/request")
+const res = require("express/lib/response")
 
 var express = require("express"),
     path = require('path'),
@@ -18,9 +19,15 @@ router
             phone: req.body.telefono
         }
         console.log(datos)
-    
+
     })
-    .post("/In")
+    .post('/Iniciarsesion', (req, res) => {
+        var datos = {
+            email: req.body.correo,
+            pass: req.body.contrasena
+        }
+        console.log(datos)
+    })
 
 
 //No borrar
