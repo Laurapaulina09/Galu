@@ -37,10 +37,19 @@ form.addEventListener("submit",function(event){
     }
   })
   function CreateJson(email,passwd){ 
-    var FormSucessfull={"correo":email.value,"contrasena":passwd.value}
+    var formSucessfull={"correo":email.value,"contrasena":passwd.value}
    // console.log(FormSucessfull);
-    enviarFormulario('/Iniciarsesion',FormSucessfull);
-    alert("Registro Completado");
+    var inicio_Sesion=enviarFormulario('/Iniciarsesion',formSucessfull);
+    if (inicio_Sesion=='usuario si existe')
+    {
+      alert("Registro Completado");
+      return;
+    } 
+    if (inicio_Sesion='usuario no existe'){
+      alert("el usuario no se encuentra registrado")
+    }
+    
+    
   }
 
   async function enviarFormulario(url = '', data = {}) {
