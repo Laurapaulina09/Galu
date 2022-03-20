@@ -45,7 +45,7 @@ function CreateJson(email, passwd) {
             return response.json()
         })
         .then(respuesta => {
-            console.log(respuesta)
+            alert(respuesta.mensaje)
         })
 }
 
