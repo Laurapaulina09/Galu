@@ -11,6 +11,12 @@ router
     .get('/registro', (req, res) => {
         res.sendFile(path.join(__dirname, '../vistas/Registro.html'))
     })
+    .get('/editar', (req, res) => {
+        res.sendFile(path.join(__dirname, '../vistas/editar.html'))
+    })
+    .get('/principal', (req, res) => {
+        res.sendFile(path.join(__dirname, '../vistas/principal.html'))
+    })
     .post("/datosNuevoUsuario", (req, res) => {
         var datos = {
             name: req.body.nombre,
