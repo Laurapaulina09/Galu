@@ -31,15 +31,15 @@ body {
     font-weight: 400;
     color: #9fa8b9;
 }
-.account-settings .about {
+.account-settings .sobre {
     margin: 2rem 0 0 0;
     text-align: center;
 }
-.account-settings .about h5 {
+.account-settings .sobre h5 {
     margin: 0 0 15px 0;
     color: #007ae1;
 }
-.account-settings .about p {
+.account-settings .sobre p {
     font-size: 0.825rem;
 }
 .form-control {
