@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+	<title></title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="editar.css">
+</head>
+
+<body>
+    <div class="img_login"><img width="170px" src="/GalúAzul.png" alt=""></div>
+        <div class="container">
+        <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="account-settings">
+                    <div class="user-profile">
+
+                        <div class="user-avatar">
+                            <div>
+                                <img src="https://cdn2.iconfinder.com/data/icons/bitsies/128/Image-512.png" alt="">
+                            </div>
+                            <input id="user-avatar" accept="image/*" type="file">
+                        </div>
+                        
+                        <h5 class="user-nombre">Nombre de la persona</h5>
+                        <h6 class="user-correo">Correo de la persona</h6>
+                    </div>
+                    <div class="sobre">
+                        <h5>Sobre mi trabajo</h5>
+                        <p><textarea name="sobre" rows="4" cols="30"></textarea></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+            <div class="card-body">
+                <div id="datos" class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h6 class="mb-2 text-primary">Datos</h6>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Digite nombre">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="correo">Correo</label>
+                            <input type="email" class="form-control" id="correo" placeholder="Digite correo ID">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" placeholder="Digite apellido">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="telefono">Telefono</label>
+                            <input type="text" class="form-control" id="telefono" placeholder="Digite numero de Telefono">
+                        </div>
+                    </div>
+                </div>
+                <div id="contraseña" class="row gutters">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="nombre">Contraseña</label>
+                            <input type="password" class="form-control" id="contraseña" placeholder="Digite nueva contraseña">
+                        </div>
+                    </div>
+                </div>
+                <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="text-right">
+                            <button type="button" id="submitCanc" name="submit" class="btn btn-secondary">Cancelar</button>
+                            <button type="button" id="submitGuar" name="submit" class="btn btn-primary">Guardad</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <script type="text/javascript">
+        </script>
+</body>
+</html>
