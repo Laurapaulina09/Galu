@@ -84,6 +84,36 @@ input[type="password"] {
     bottom: 0;
     left: 0
 }
+.input-contenedor-one sucess {
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0
+}
+
+.input-contenedor-one {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    margin-bottom: 15px;
+    border: 1px solid #aaa;
+}
+
+.input-contenedor-one input {
+    width: 100%
+}
+
+.input-contenedor-one>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-contenedor-one small {
+    visibility: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0
+}
 
 .icon {
     min-width: 50px;

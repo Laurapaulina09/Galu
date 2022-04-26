@@ -5,17 +5,14 @@ var express = require("express"),
     path = require('path'),
     router = express.Router()
 router
-    .get('/login', (req, res) => {
+/*    .get('/login', (req, res) => {
         res.sendFile(path.join(__dirname, '../vistas/login.html'))
     })
     .get('/registro', (req, res) => {
         res.sendFile(path.join(__dirname, '../vistas/Registro.html'))
-    })
-    .get('/editar', (req, res) => {
-        res.sendFile(path.join(__dirname, '../vistas/editar.html'))
-    })
-    .get('/principal', (req, res) => {
-        res.sendFile(path.join(__dirname, '../vistas/principal.html'))
+    })*/
+    .get('/perfil', (req, res) => {
+        res.sendFile(path.join(__dirname, '../vistas/perfil.html'))
     })
     .post("/datosNuevoUsuario", (req, res) => {
         var datos = {

@@ -45,7 +45,12 @@ function CreateJson(email, passwd) {
             return response.json()
         })
         .then(respuesta => {
-            alert(respuesta.mensaje)
+            if(respuesta.mensaje === 'usuario si existe'){
+                sessionStorage.setItem('user', JSON.stringify({usuario:email.value, password:passwd.value}))
+                window.location.href='/perfil'
+            }else{
+                alert('Contraseña o usuario erroneo')
+            }
         })
 }
 

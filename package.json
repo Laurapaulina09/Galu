@@ -4,7 +4,7 @@
   "description": "Proyecto Ingenieria de software",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon main.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,8 @@
   "homepage": "https://github.com/Laurapaulina09/Galu#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "mysql": "github:mysqljs/mysql"
+    "mysql": "github:mysqljs/mysql",
+    "nodemon": "^2.0.15"
   },
   "devDependencies": {
     "express-reload": "^1.2.0",
