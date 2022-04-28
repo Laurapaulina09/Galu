@@ -20,11 +20,11 @@ router
     .post("/datosNuevoUsuario", (req, res) => {
         var datos = {
             nombre: req.body.nombre,
-            apellido: req.body.apellido,
             correo: req.body.correo,
             contrasena: req.body.contrasena,
             telefono: req.body.telefono,
-            rol: '01Cliente'
+            avatar:'/img/usuario.webp',
+            rol:'01Cliente'
         }
         conectar.almacenarUsuario(datos, () => {
             res.send('usuario Registrado')
@@ -34,16 +34,15 @@ router
     })
     .post('/Iniciarsesion', (req, res) => {
         var datos = {
-            email: req.body.correo,
-            pass: req.body.contrasena
+            correo: req.body.correo,
+            contrasena: req.body.contrasena
         }
         var respuesta;
         conectar.iniciarSession (datos, (usuario) => {
-            if (usuario.length == 1) {
-                respuesta = { mensaje: 'usuario si existe' ,
-                nombre:usuario[0].nombre
+            if (usuario.length >= 1) {
+                respuesta = { mensaje: 'usuario si existe' 
              }
-             console.log(respuesta)
+             console.log('Existe')
                 return res.send(respuesta);
             } else {
                 console.log("No existe")
@@ -52,29 +51,22 @@ router
             }
         })
     })
-
-    //se esta intentado lo de luis que dijo que coloca el correo y sale el nombre y apellidos, 
-    //esta funcion tiene un error 
-    .get('/mostrar', (req, res) => {
+.get('/verPerfil', (req, res) => {
         var datos = {
-            email: req.body.correo
+            correo:req.body.correo
         }
         var respuesta;
-        conectar.mostrarPerfil (datos, (usuario) => {
+        conectar.mostrarPerfil(datos, (usuario) => {
             if (usuario.length >= 1) {
-                respuesta = { mensaje: 'usuario si existe' }
+                respuesta = usuario[0]
                 return res.send(respuesta);
             } else {
-                console.log("No existe")
-                respuesta = { mensaje: 'usuario no existe' }
+                console.log("El usuario no existe")
+                respuesta = { mensaje: 'El usuario no existe' }
                 return res.send(respuesta)
             }
         })
     })
-
-
-
-
 //No borrar
 /*
     .post('/no', (req,res)=>{

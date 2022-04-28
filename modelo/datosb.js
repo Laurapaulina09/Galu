@@ -1,9 +1,8 @@
 var conectar = require("./conectdb")
 
 function Conexion() {}
-
 Conexion.almacenarUsuario = (datos, cb) => {
-    conectar.query(`INSERT INTO usuarios VALUES ("${datos.nombre}","${datos.apellido}","${datos.correo}","${datos.contrasena}","${datos.telefono}","${datos.rol}")`, function(err, res) {
+    conectar.query(`INSERT INTO usuarios VALUES ("${datos.nombre}","${datos.correo}","${datos.contrasena}","${datos.telefono}","${datos.avatar}","${datos.rol}")`, function(err, res) {
         if (err) {
             console.log(err)
         } else {

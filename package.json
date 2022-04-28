@@ -18,9 +18,10 @@
   },
   "homepage": "https://github.com/Laurapaulina09/Galu#readme",
   "dependencies": {
-    "express": "^4.17.3",
+    "express": "^4.18.0",
     "mysql": "github:mysqljs/mysql",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "reloader": "^1.0.2"
   },
   "devDependencies": {
     "express-reload": "^1.2.0",

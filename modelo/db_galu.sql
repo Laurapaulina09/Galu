@@ -18,22 +18,28 @@ CREATE TABLE IF NOT EXISTS `db_galu`.`rol` (
   `rol` VARCHAR(45) NULL,
   PRIMARY KEY (`id_rol`))
 ENGINE = InnoDB;
-
+-- -----------------------------------------------------
+-- Valores que debe tener la tabla rol
+-- -----------------------------------------------------
+INSERT INTO rol ( id_rol, rol)
+VALUES('01Cliente','Cliente' )
+INSERT INTO rol ( id_rol, rol)
+VALUES('02Trabajador','Trabajador' )
+INSERT INTO rol ( id_rol, rol)
+VALUES('03Administrador','Administrador' )
 -- -----------------------------------------------------
 -- Table `db_galu`.`usuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_galu`.`usuarios` (
   `nombre` VARCHAR(45) NOT NULL,
-  `apellidos` VARCHAR(45) NOT NULL,
   `correo` VARCHAR(45) NOT NULL,
   `contraseña` VARCHAR(45) NOT NULL,
   `telefono` VARCHAR(45) NOT NULL,
   `avatar` VARCHAR(200) NOT NULL,
   `id_rol` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`correo`),
-    FOREIGN KEY (`id_rol`)
-    REFERENCES `db_galu`.`rol` (`id_rol`)
-    )
+  CONSTRAINT FK_rol FOREIGN KEY (`id_rol`) REFERENCES rol( `id_rol`)
+)
 ENGINE = InnoDB;
 
 
