@@ -91,7 +91,7 @@
             </div>
         </div>
     </div> -->
-    <div class="categoria"> 
+   <!--  <div class="categoria"> 
         <div class="cuadro">
             <div class="close">
                 <i class="bi bi-x-circle-fill"></i>
@@ -107,7 +107,7 @@
                 <button type="submit" class="btn btn-primary">Continuar</button>
             </div>
         </div>
-    </div>
+    </div> -->
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
@@ -115,14 +115,23 @@
     crossorigin="anonymous"></script>
 <script src="/js/components/navbar_perfil.js"></script>
 <script>
-    var imagen = "";
-    if (imagen == null) {
+    
+    correo=location.pathname
+ fetch('/verperfil/'+location.pathname.split("/").pop())
+.then(response=> response.json())
+.then(response=> {
+    document.getElementById("name").value =response.nombre
+    document.getElementById("email").value =response.correo
+    document.getElementById("password").value =response.contrasena
+    document.getElementById("Telefono").value =response.telefono
+    if (response.avatar == null) {
         document.getElementById('img_usuario').setAttribute('src', "/img/usuario.webp")
         document.getElementById('img_jr').setAttribute('src', "/img/usuario.webp")
     } else {
-        document.getElementById('img_usuario').setAttribute('src', 'https://xavierferras.com/wp-content/uploads/2019/02/266-Persona.jpg')
-        document.getElementById('img_jr').setAttribute('src', 'https://xavierferras.com/wp-content/uploads/2019/02/266-Persona.jpg')
+        document.getElementById('img_usuario').setAttribute('src', response.avatar)
+        document.getElementById('img_jr').setAttribute('src', response.avatar)
     }
+})
 </script>
 
 

@@ -5,17 +5,17 @@ var express = require("express"),
     path = require('path'),
     router = express.Router()
 router
-    .get('/login', (req, res) => {
-        res.sendFile(path.join(__dirname, '../vistas/login.html'))
-    })
-    .get('/registro', (req, res) => {
-        res.sendFile(path.join(__dirname, '../vistas/Registro.html'))
-    })
+    //.get('/login', (req, res) => {
+        //res.sendFile(path.join(__dirname, '../vistas/login.html'))
+    
+    //.get('/registro', (req, res) => {
+       // res.sendFile(path.join(__dirname, '../vistas/Registro.html'))
+    
     .get('/editar', (req, res) => {
         res.sendFile(path.join(__dirname, '../vistas/editar.html'))
     })
-    .get('/principal', (req, res) => {
-        res.sendFile(path.join(__dirname, '../vistas/principal.html'))
+    .get('/perfil/:correo', (req, res) => {
+        res.sendFile(path.join(__dirname, '../vistas/perfil.html'))
     })
     .post("/datosNuevoUsuario", (req, res) => {
         var datos = {
@@ -51,9 +51,9 @@ router
             }
         })
     })
-.get('/verPerfil', (req, res) => {
+.get('/verPerfil/:correo', (req, res) => {
         var datos = {
-            correo:req.body.correo
+            correo:req.params.correo
         }
         var respuesta;
         conectar.mostrarPerfil(datos, (usuario) => {
@@ -77,6 +77,12 @@ router
         })
         res.send('Ok')
     })
+*/
+/*
+fetch('/verperfil/laura.norenaco@gmail.com')
+.then(response=> response.json())
+.then(response=> console.log(response))
+
 */
 
 module.exports = router
