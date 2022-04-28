@@ -5,21 +5,26 @@ var express = require("express"),
     path = require('path'),
     router = express.Router()
 router
-/*    .get('/login', (req, res) => {
+    .get('/login', (req, res) => {
         res.sendFile(path.join(__dirname, '../vistas/login.html'))
     })
     .get('/registro', (req, res) => {
         res.sendFile(path.join(__dirname, '../vistas/Registro.html'))
-    })*/
-    .get('/perfil', (req, res) => {
-        res.sendFile(path.join(__dirname, '../vistas/perfil.html'))
+    })
+    .get('/editar', (req, res) => {
+        res.sendFile(path.join(__dirname, '../vistas/editar.html'))
+    })
+    .get('/principal', (req, res) => {
+        res.sendFile(path.join(__dirname, '../vistas/principal.html'))
     })
     .post("/datosNuevoUsuario", (req, res) => {
         var datos = {
-            name: req.body.nombre,
-            email: req.body.correo,
-            pass: req.body.contrasena,
-            phone: req.body.telefono
+            nombre: req.body.nombre,
+            correo: req.body.correo,
+            contrasena: req.body.contrasena,
+            telefono: req.body.telefono,
+            avatar:'/img/usuario.webp',
+            rol:'01Cliente'
         }
         conectar.almacenarUsuario(datos, () => {
             res.send('usuario Registrado')
@@ -27,16 +32,17 @@ router
 
 
     })
-    
     .post('/Iniciarsesion', (req, res) => {
         var datos = {
-            email: req.body.correo,
-            pass: req.body.contrasena
+            correo: req.body.correo,
+            contrasena: req.body.contrasena
         }
         var respuesta;
-        conectar.verificarUsuario(datos, (usuario) => {
-            if (usuario.length == 1) {
-                respuesta = { mensaje: 'usuario si existe' }
+        conectar.iniciarSession (datos, (usuario) => {
+            if (usuario.length >= 1) {
+                respuesta = { mensaje: 'usuario si existe' 
+             }
+             console.log('Existe')
                 return res.send(respuesta);
             } else {
                 console.log("No existe")
@@ -45,11 +51,22 @@ router
             }
         })
     })
-
-
-
-
-
+.get('/verPerfil', (req, res) => {
+        var datos = {
+            correo:req.body.correo
+        }
+        var respuesta;
+        conectar.mostrarPerfil(datos, (usuario) => {
+            if (usuario.length >= 1) {
+                respuesta = usuario[0]
+                return res.send(respuesta);
+            } else {
+                console.log("El usuario no existe")
+                respuesta = { mensaje: 'El usuario no existe' }
+                return res.send(respuesta)
+            }
+        })
+    })
 //No borrar
 /*
     .post('/no', (req,res)=>{

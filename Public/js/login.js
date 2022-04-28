@@ -1,5 +1,4 @@
 var form = document.getElementById('form')
-
 function validateEmail(email) {
     emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     //Se muestra un texto a modo de ejemplo, luego va a ser un icono
@@ -47,7 +46,9 @@ function CreateJson(email, passwd) {
         .then(respuesta => {
             if(respuesta.mensaje === 'usuario si existe'){
                 sessionStorage.setItem('user', JSON.stringify({usuario:email.value, password:passwd.value}))
-                window.location.href='/perfil'
+                console.log('user_exists')
+                window.location.replace('localhost:3000/perfil')
+                //window.location.href='/perfil'
             }else{
                 alert('Contraseña o usuario erroneo')
             }

@@ -83,7 +83,7 @@ function CreateJson(username, email, passwd, phone) {
     nombre: username.value,
     correo: email.value,
     contrasena: passwd.value,
-    telefono: phone.value
+    telefono: phone.value,
   }
   // console.log(FormSucessfull);
   var send_Form=enviarFormulario(FormSucessfull);
