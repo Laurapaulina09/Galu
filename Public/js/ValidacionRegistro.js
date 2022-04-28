@@ -89,7 +89,7 @@ function CreateJson(username, email, passwd, phone) {
   var send_Form=enviarFormulario(FormSucessfull);
   if (send_Form='usuario Registrado')
   {
-    alert("Registro Completado");
+    window.location="/login.html"
   } else{
     alert("No se pudo completar el registro")
   } 
