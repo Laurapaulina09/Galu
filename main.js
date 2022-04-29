@@ -4,11 +4,12 @@ const express=require("express"),
     rutas = require('./Rutas/rutas.js'),
     app=express(),
     puerto=3000
-
+    
 //Se pone al descubierto la carpeta publica
 app.use(express.static(__dirname+'/Public'))
 
 app.use(express.json())
+//app.use(bodyParser.json())
 
 //Express usa las rutas creadas en el archivo rutas.js
 app.use(rutas)

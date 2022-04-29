@@ -1,11 +1,17 @@
 const req = require("express/lib/request");
 const res = require("express/lib/response");
 var conectar = require("../modelo/datosb");
-const fse = require('fs-extra');
+const fs = require('fs');
+const multer = require("multer")
+const formidable = require('formidable')
 
 var express = require("express"),
     path = require('path'),
     router = express.Router()
+
+const upload = multer({
+    dist: './Public/img/uploads/'
+})
 router
     //.get('/login', (req, res) => {
     //res.sendFile(path.join(__dirname, '../vistas/login.html'))
@@ -70,53 +76,58 @@ router
             }
         })
     })
-.post('/subirFotoPerfil/:correo',(req,res)=>{
+    .post('/subirFotoPerfil/:correo', (req, res) => {
+        console.log('efescec')
+        var form = new formidable.IncomingForm();
+        form.parse(req, function (err, fields, files) {
+            let imgPath = files.foto.path
+            let imgName = files.foto.name
+            // Leer archivos de forma sincrónica
+            console.log(imgPath)
+            console.log(imgName)
+            let data = fs.readFileSync(imgPath)
+            // Almacene la imagen cargada, obtenga la dirección de la imagen estática al mismo tiempo y devuélvala al cliente
+            fs.writeFile("Public/img/uploads" + imgName, data, function (err) {
+                if (err) {
+                    console.log(err)
+                    return;
+                }
+                let itemUrl = {
+                    "path": "static/" + imgName
+                };
+                let url = "static/" + imgName;
+                res.send(url);
+            })
+        })
+    })
 
-       fecha=Date.new();
-       ruta_img='Public/img/uploads'+fecha+'.jpeg'
-     datos={
-        ruta:ruta_img,
-        correo:req.params.correo
-    }
-        fse.move(req.file.path, ruta_img, (err)=>{
-            if(err){
-                console.log(err)
-            }else{
-                conectar.almacenarImagenUsuario(datos, function(imagen){
-                    res.send('Se ha subido la foto!')
-                })
+    .put('/editarPerfil', (req, res) => {
+        console.log("wwd", req.body)
+        var datos = {
+            nombre: req.body.nombre,
+            correo: req.body.correo,
+            contrasena: req.body.contrasena,
+            telefono: req.body.telefono,
+        }
+        var respuesta;
+        conectar.editarPerfil(datos, (usuario) => {
+            if (usuario.length >= 1) {
+                respuesta = {
+                    mensaje: 'usuario editado',
+                    nombre: usuario[0].nombre,
+                    correo: usuario[0].correo,
+                    contrasena: usuario[0].contraseña,
+                    telefono: usuario[0].telefono
+                }
+                console.log('el usuario:' + usuario[0].correo + 'Ha sido editado')
+                return res.send(respuesta);
+            } else {
+                console.log("No Se ha podido modificar el perfil")
+                respuesta = { mensaje: 'No Se ha podido modificar el perfil' }
+                return res.send(respuesta)
             }
         })
-    }
-  )  
-
-.put('/editarPerfil',(req,res)=>{
-    var datos = {
-        nombre: req.body.nombre,
-        correo: req.body.correo,
-        contrasena: req.body.contrasena,
-        telefono: req.body.telefono,
-    }
-
-    var respuesta;
-    conectar.editarPerfil(datos, (usuario) => {
-        if (usuario.length >= 1) {
-            respuesta = {
-                mensaje: 'usuario editado',
-                nombre:usuario[0].nombre,
-                correo:usuario[0].correo,
-                contrasena:usuario[0].contraseña,
-                telefono:usuario[0].telefono
-            }
-            console.log('el usuario:'+usuario[0].correo+'Ha sido editado')
-            return res.send(respuesta);
-        } else {
-            console.log("No Se ha podido modificar el perfil")
-            respuesta = {mensaje: 'No Se ha podido modificar el perfil' }
-            return res.send(respuesta)
-        }
-    })
-});
+    });
 
 //No borrar
 /*

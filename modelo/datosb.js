@@ -44,8 +44,7 @@ Conexion.editarPerfil = (datos, cb) => {
     var sql = `UPDATE usuarios
     SET nombre="${datos.nombre}", 
     contraseña= "${datos.contrasena}",
-    telefono= "${datos.telefono}",
-    avatar="${datos.avatar}"
+    telefono= "${datos.telefono}"
     WHERE correo ="${datos.correo}"`;
     conectar.query(sql, function(err, res) {
         if (err) {

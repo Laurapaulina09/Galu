@@ -27,7 +27,7 @@ class CarouselGalu extends HTMLElement{
                 <img src="./img/slider 2.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     
-                    <p>Conectamos a expertos en servicios especializados para tu hogar.</p>
+                    <p class="text-black">Conectamos a expertos en servicios especializados para tu hogar.</p>
                 </div>
             </div>
             <div class="carousel-item">
