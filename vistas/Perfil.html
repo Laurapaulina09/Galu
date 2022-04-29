@@ -34,7 +34,7 @@
                 <form>
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" disabled class="form-control" id="name">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo</label>
@@ -42,19 +42,23 @@
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" disabled class="form-control" id="password">
                     </div>
                     <div class="mb-3">
                         <label for="Telefono" class="form-label">Teléfono</label>
-                        <input type="number" class="form-control" id="Telefono">
+                        <input type="number" disabled class="form-control" id="Telefono">
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <div class="btn btn-primary" onclick="actualizarDatos()">
+                        Actualizar Datos
+                    </div>
                 </form>
             </section>
         </article>
     </div>
+  
+    <div id="actualizar"></div>
 
-   <!--  <div class="categoria"> 
+    <!--  <div class="categoria"> 
         <div class="cuadro">
             <div class="close">
                 <i class="bi bi-x-circle-fill"></i>
@@ -91,7 +95,7 @@
             </div>
         </div>
     </div> -->
-   <!--  <div class="categoria"> 
+    <!--  <div class="categoria"> 
         <div class="cuadro">
             <div class="close">
                 <i class="bi bi-x-circle-fill"></i>
@@ -114,25 +118,7 @@
     integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
     crossorigin="anonymous"></script>
 <script src="/js/components/navbar_perfil.js"></script>
-<script>
-    
-    correo=location.pathname
- fetch('/verperfil/'+location.pathname.split("/").pop())
-.then(response=> response.json())
-.then(response=> {
-    document.getElementById("name").value =response.nombre
-    document.getElementById("email").value =response.correo
-    document.getElementById("password").value =response.contrasena
-    document.getElementById("Telefono").value =response.telefono
-    if (response.avatar == null) {
-        document.getElementById('img_usuario').setAttribute('src', "/img/usuario.webp")
-        document.getElementById('img_jr').setAttribute('src', "/img/usuario.webp")
-    } else {
-        document.getElementById('img_usuario').setAttribute('src', response.avatar)
-        document.getElementById('img_jr').setAttribute('src', response.avatar)
-    }
-})
-</script>
 
+<script src="/js/Perfil.js"></script>
 
 </html>
