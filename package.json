@@ -25,7 +25,8 @@
     "multer": "^1.4.4",
     "mysql": "github:mysqljs/mysql",
     "nodemon": "^2.0.15",
-    "reloader": "^1.0.2"
+    "reloader": "^1.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "express-reload": "^1.2.0",

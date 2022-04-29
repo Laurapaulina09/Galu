@@ -58,9 +58,8 @@ Conexion.editarPerfil = (datos, cb) => {
     })
 }
 Conexion.almacenarImagenUsuario = (datos, cb) => {
-    var sql = `UPDATE usuarios
-    avatar="${datos.avatar}"
-    WHERE correo ="${datos.correo}"`;
+    var sql = `UPDATE usuarios SET avatar="${datos.avatar}" WHERE correo ="${datos.correo}"`;
+    console.log(sql)
     conectar.query(sql, function(err, res) {
         if (err) {
             console.log("Error al subir foto de perfil")

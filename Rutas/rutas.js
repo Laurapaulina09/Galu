@@ -2,16 +2,12 @@ const req = require("express/lib/request");
 const res = require("express/lib/response");
 var conectar = require("../modelo/datosb");
 const fs = require('fs');
-const multer = require("multer")
-const formidable = require('formidable')
+const multer = require('../manejoImagen')
 
 var express = require("express"),
     path = require('path'),
     router = express.Router()
 
-const upload = multer({
-    dist: './Public/img/uploads/'
-})
 router
     //.get('/login', (req, res) => {
     //res.sendFile(path.join(__dirname, '../vistas/login.html'))
@@ -76,30 +72,6 @@ router
             }
         })
     })
-    .post('/subirFotoPerfil/:correo', (req, res) => {
-        console.log('efescec')
-        var form = new formidable.IncomingForm();
-        form.parse(req, function (err, fields, files) {
-            let imgPath = files.foto.path
-            let imgName = files.foto.name
-            // Leer archivos de forma sincrónica
-            console.log(imgPath)
-            console.log(imgName)
-            let data = fs.readFileSync(imgPath)
-            // Almacene la imagen cargada, obtenga la dirección de la imagen estática al mismo tiempo y devuélvala al cliente
-            fs.writeFile("Public/img/uploads" + imgName, data, function (err) {
-                if (err) {
-                    console.log(err)
-                    return;
-                }
-                let itemUrl = {
-                    "path": "static/" + imgName
-                };
-                let url = "static/" + imgName;
-                res.send(url);
-            })
-        })
-    })
 
     .put('/editarPerfil', (req, res) => {
         console.log("wwd", req.body)
@@ -127,8 +99,45 @@ router
                 return res.send(respuesta)
             }
         })
-    });
+    })
 
+    
+    .put('/subirFotoPerfil/:correo', multer.single('foto'), (req, res) => {
+        console.log('entro')
+        datos={
+            avatar:`\\\\img\\\\uploads\\\\${req.file.filename}`,
+            correo:req.params.correo
+        }
+        console.log(datos)
+        conectar.almacenarImagenUsuario(datos,(respuesta)=>{
+            res.status(200).json({
+                respuestaDb:respuesta,
+                rutaImagen:datos.avatar
+            })
+        })
+        /*console.log('efescec')
+        var form = new formidable.IncomingForm();
+        form.parse(req, function (err, fields, files) {
+            let imgPath = files.foto.path
+            let imgName = files.foto.name
+            // Leer archivos de forma sincrónica
+            console.log(imgPath)
+            console.log(imgName)
+            let data = fs.readFileSync(imgPath)
+            // Almacene la imagen cargada, obtenga la dirección de la imagen estática al mismo tiempo y devuélvala al cliente
+            fs.writeFile("Public/img/uploads" + imgName, data, function (err) {
+                if (err) {
+                    console.log(err)
+                    return;
+                }
+                let itemUrl = {
+                    "path": "static/" + imgName
+                };
+                let url = "static/" + imgName;
+                res.send(url);
+            })
+        })*/
+    })
 //No borrar
 /*
     .post('/no', (req,res)=>{
