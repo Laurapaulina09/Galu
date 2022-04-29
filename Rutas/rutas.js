@@ -1,16 +1,18 @@
-const req = require("express/lib/request")
-const res = require("express/lib/response")
-var conectar = require("../modelo/datosb")
+const req = require("express/lib/request");
+const res = require("express/lib/response");
+var conectar = require("../modelo/datosb");
+const fse = require('fs-extra');
+
 var express = require("express"),
     path = require('path'),
     router = express.Router()
 router
     //.get('/login', (req, res) => {
-        //res.sendFile(path.join(__dirname, '../vistas/login.html'))
-    
+    //res.sendFile(path.join(__dirname, '../vistas/login.html'))
+
     //.get('/registro', (req, res) => {
-       // res.sendFile(path.join(__dirname, '../vistas/Registro.html'))
-    
+    // res.sendFile(path.join(__dirname, '../vistas/Registro.html'))
+
     .get('/editar', (req, res) => {
         res.sendFile(path.join(__dirname, '../vistas/editar.html'))
     })
@@ -23,8 +25,8 @@ router
             correo: req.body.correo,
             contrasena: req.body.contrasena,
             telefono: req.body.telefono,
-            avatar:'/img/usuario.webp',
-            rol:'01Cliente'
+            avatar: '/img/usuario.webp',
+            rol: '01Cliente'
         }
         conectar.almacenarUsuario(datos, () => {
             res.send('usuario Registrado')
@@ -38,11 +40,12 @@ router
             contrasena: req.body.contrasena
         }
         var respuesta;
-        conectar.iniciarSession (datos, (usuario) => {
+        conectar.iniciarSession(datos, (usuario) => {
             if (usuario.length >= 1) {
-                respuesta = { mensaje: 'usuario si existe' 
-             }
-             console.log('Existe')
+                respuesta = {
+                    mensaje: 'usuario si existe'
+                }
+                console.log('Existe')
                 return res.send(respuesta);
             } else {
                 console.log("No existe")
@@ -51,9 +54,9 @@ router
             }
         })
     })
-.get('/verPerfil/:correo', (req, res) => {
+    .get('/verPerfil/:correo', (req, res) => {
         var datos = {
-            correo:req.params.correo
+            correo: req.params.correo
         }
         var respuesta;
         conectar.mostrarPerfil(datos, (usuario) => {
@@ -67,6 +70,54 @@ router
             }
         })
     })
+.post('/subirFotoPerfil/:correo',(req,res)=>{
+
+       fecha=Date.new();
+       ruta_img='Public/img/uploads'+fecha+'.jpeg'
+     datos={
+        ruta:ruta_img,
+        correo:req.params.correo
+    }
+        fse.move(req.file.path, ruta_img, (err)=>{
+            if(err){
+                console.log(err)
+            }else{
+                conectar.almacenarImagenUsuario(datos, function(imagen){
+                    res.send('Se ha subido la foto!')
+                })
+            }
+        })
+    }
+  )  
+
+.put('/editarPerfil',(req,res)=>{
+    var datos = {
+        nombre: req.body.nombre,
+        correo: req.body.correo,
+        contrasena: req.body.contrasena,
+        telefono: req.body.telefono,
+    }
+
+    var respuesta;
+    conectar.editarPerfil(datos, (usuario) => {
+        if (usuario.length >= 1) {
+            respuesta = {
+                mensaje: 'usuario editado',
+                nombre:usuario[0].nombre,
+                correo:usuario[0].correo,
+                contrasena:usuario[0].contraseña,
+                telefono:usuario[0].telefono
+            }
+            console.log('el usuario:'+usuario[0].correo+'Ha sido editado')
+            return res.send(respuesta);
+        } else {
+            console.log("No Se ha podido modificar el perfil")
+            respuesta = {mensaje: 'No Se ha podido modificar el perfil' }
+            return res.send(respuesta)
+        }
+    })
+});
+
 //No borrar
 /*
     .post('/no', (req,res)=>{

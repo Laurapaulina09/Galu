@@ -39,7 +39,38 @@ Conexion.mostrarPerfil = (datos, cb) => {
             cb(res)
         }
     })
-
 }
-
+Conexion.editarPerfil = (datos, cb) => {
+    var sql = `UPDATE usuarios
+    SET nombre="${datos.nombre}", 
+    contraseña= "${datos.contrasena}",
+    telefono= "${datos.telefono}",
+    avatar="${datos.avatar}"
+    WHERE correo ="${datos.correo}"`;
+    conectar.query(sql, function(err, res) {
+        if (err) {
+            console.log("Error al actualizar")
+            console.log(err);
+            throw err;
+        } else {
+            console.log(res);
+            cb(res)
+        }
+    })
+}
+Conexion.almacenarImagenUsuario = (datos, cb) => {
+    var sql = `UPDATE usuarios
+    avatar="${datos.avatar}"
+    WHERE correo ="${datos.correo}"`;
+    conectar.query(sql, function(err, res) {
+        if (err) {
+            console.log("Error al subir foto de perfil")
+            console.log(err);
+            throw err;
+        } else {
+            console.log(res);
+            cb(res)
+        }
+    })
+}
 module.exports = Conexion;
