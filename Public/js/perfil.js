@@ -93,6 +93,7 @@ async function enviar(formData){
         })
         .then((res) => {
             resolve(res.data);
+            location.reload()
         })
         .catch((err) => {
             console.log(err);

@@ -20,20 +20,20 @@ class CarouselGalu extends HTMLElement{
             <div class="carousel-item active">
                 <img src="./img/slider1.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <p> Prestamos diferentes servicios para el mantenimiento, reparación y mejoras del hogar.</p>
+                    <h4> Prestamos diferentes servicios para el mantenimiento, reparación y mejoras del hogar.</h4>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="./img/slider 2.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     
-                    <p class="text-black">Conectamos a expertos en servicios especializados para tu hogar.</p>
+                <h4>Conectamos a expertos en servicios especializados para tu hogar.</h4>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="./img/slider3.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <p>Garantizamos la calidad de los trabajos.</p>
+                    <h4>Garantizamos la calidad de los trabajos.</h4>
                 </div>
             </div>
         </div>
