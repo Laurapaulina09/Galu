@@ -54,7 +54,7 @@
                     <v-list-item v-for="(item, i) in listCategorias" :key="i" @click="cambioUrl2(item.idCategorias)">
                     <router-link :to="'/categoria/'+item.idCategorias" class="d-flex" style="text-decoration:none">
                       <v-list-item-icon>
-                        <img :src="'http://localhost:3000'+item.icono" alt="" srcset="">
+                        <img :src="item.icono" alt="" srcset="">
                       </v-list-item-icon>
                       <v-list-item-content>
                         <v-list-item-title v-text="item.nombre_categoria"></v-list-item-title>
@@ -127,7 +127,7 @@ export default {
     .then(respuesta=> respuesta.json())
     .then(respuesta=> this.listCategorias=respuesta)
     emmit.on('imagen-avatar-cambio', (cambio)=> {
-      this.InfoLink[2].imagen='http://localhost:3000'+cambio.avatar
+      this.InfoLink[2].imagen=cambio.avatar
     })
   },
 }

@@ -7,7 +7,7 @@
                     <v-card elevation="2" class="pa-4">
                         <div class="d-flex">
                             <v-avatar color="primary" size="80">
-                                    <img :src="'http://localhost:3000'+c.avatar" alt="">
+                                    <img :src="c.avatar" alt="">
                             </v-avatar>
                             <div class="ms-2" style="align-self:center">
                                 <router-link :to="'/profesional/'+c.cedula" style="text-decoration:none">
