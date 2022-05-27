@@ -22,15 +22,16 @@
             <v-list-item-title>Home</v-list-item-title>
             </router-link>
           </v-list-item>
-
-          <v-list-item>
-            <router-link to="/reservar" class="d-flex links" exact>
+          <!-- <v-list-item v-for="(c,i) in InfoLink" :key="i">
+            <router-link to="/" class-active="" class="d-flex links" exact>
               <v-list-item-icon>
-              <v-icon>mdi-airplane</v-icon>
+              <v-avatar size="30">
+                <img :src="c.imagen" alt="" srcset="">
+              </v-avatar>
             </v-list-item-icon>
-            <v-list-item-title>Reservar</v-list-item-title>
+            <v-list-item-title>{{c.show}}</v-list-item-title>
             </router-link>
-          </v-list-item>
+          </v-list-item> -->
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -53,7 +54,22 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    
+    InfoLink: [
+        {
+          id: 1,
+          vista: true,
+          show: 'Categorias',
+          imagen: 'https://c0.klipartz.com/pngpicture/685/811/gratis-png-iconos-de-computadora-etiqueta-de-precio-diseno-de-icono-etiqueta.png',
+          link: ''
+        },
+        {
+          id: 2,
+          vista: true,
+          show: 'Trabaja con nosotros',
+          imagen: 'https://cdn-icons-png.flaticon.com/512/237/237382.png',
+          link: ''
+        }
+      ],
   }),
   methods: {
     cambioUrl(){

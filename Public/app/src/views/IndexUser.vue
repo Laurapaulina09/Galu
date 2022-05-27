@@ -171,7 +171,10 @@ export default {
     buscarUsuario(){ 
       fetch('http://localhost:3000/verPerfil/'+localStorage.getItem('usuario'))
       .then(dat=> dat.json())
-      .then(dat=> this.datos=dat)
+      .then(dat=>{
+        this.datos=dat
+        setTimeout(()=>emmit.emit('imagen-avatar-cambio', {rol:dat.rol, avatar:dat.avatar}),500)
+      })
     },
     guardarDescripcion(){
       fetch('http://localhost:3000/guardarDescripcion/'+localStorage.getItem('usuario'), {

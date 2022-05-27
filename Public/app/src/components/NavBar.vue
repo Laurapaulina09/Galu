@@ -2,7 +2,9 @@
   <div>
     <v-app-bar app color="white" dark class="px-4" height="85px">
       <div class="d-flex align-center">
-        <v-img alt="Vuetify Logo" class="shrink mr-2" contain :src="logo" transition="scale-transition" width="80" />
+        <router-link to="/" class-active="" class="d-flex links" exact>
+          <v-img alt="Vuetify Logo" class="shrink mr-2" contain :src="logo" transition="scale-transition" width="80" />
+        </router-link>
       </div>
 
       <v-spacer></v-spacer>
@@ -15,7 +17,9 @@
             <div v-if="dat.id == 3">
               <router-link class="black--text d-flex align-center mx-1" style="text-decoration:none" :to="dat.link">
                 <div v-if="dat.vista">
-                  <img width="48px" :src="dat.imagen" alt="">
+                  <v-avatar size="40">
+                    <img width="48px" :src="dat.imagen" alt="">
+                  </v-avatar>
                 </div>
                 <div v-if="dat.show && dat.vista" class="mx-1">
                   {{ dat.show }}
@@ -48,8 +52,8 @@
                 <v-list>
                   <v-list-item-group>
                     <v-list-item v-for="(item, i) in listCategorias" :key="i" @click="cambioUrl2(item.idCategorias)">
-                    <router-link :to="'/categoria/'+item.idCategorias">
-<v-list-item-icon>
+                    <router-link :to="'/categoria/'+item.idCategorias" class="d-flex" style="text-decoration:none">
+                      <v-list-item-icon>
                         <img :src="'http://localhost:3000'+item.icono" alt="" srcset="">
                       </v-list-item-icon>
                       <v-list-item-content>
@@ -68,6 +72,7 @@
   </div>
 </template>
 <script>
+import emmit from '@/services/emmit'
 import emit from '@/services/emmit'
 export default {
   name: 'NavBar',
@@ -121,6 +126,9 @@ export default {
     fetch('http://localhost:3000/listCategorias/')
     .then(respuesta=> respuesta.json())
     .then(respuesta=> this.listCategorias=respuesta)
+    emmit.on('imagen-avatar-cambio', (cambio)=> {
+      this.InfoLink[2].imagen='http://localhost:3000'+cambio.avatar
+    })
   },
 }
 </script>

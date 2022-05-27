@@ -10,7 +10,9 @@
                                     <img :src="'http://localhost:3000'+c.avatar" alt="">
                             </v-avatar>
                             <div class="ms-2" style="align-self:center">
-                                <v-card-title>{{c.nombre}}</v-card-title>
+                                <router-link :to="'/profesional/'+c.cedula" style="text-decoration:none">
+                                    <v-card-title>{{c.nombre}}</v-card-title>
+                                </router-link>
                                 <div>
                                     <v-rating
                                     :value="c.puntaje"

@@ -32,7 +32,9 @@ Conexion.iniciarSession = (datos, cb) => {
 }
 
 Conexion.mostrarPerfil = (datos, cb) => {
-    let sql = `select a.*, sum(b.puntos)/count(*) as puntaje, count(*) as numVotantes from usuarios a left join calificacion b on a.cedula = cc_profesional 
+    let sql = `select a.*, sum(b.puntos)/count(*) as puntaje, count(*) as numVotantes, c.rol
+    from usuarios a left join calificacion b on a.cedula = cc_profesional 
+    left join rol c on a.rol_idrol = c.idrol
     where cedula=${datos.cedula} group by cedula, nombre, correo, 
     contraseña, telefono, celular, avatar, descripcion,rol_idrol`;
     conectar.query(sql, function (err, res) {
