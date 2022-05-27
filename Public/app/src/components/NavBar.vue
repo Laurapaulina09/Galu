@@ -12,7 +12,7 @@
       <div :class="verHamburguesa == 'false' ? '' : 'd-sm-block d-sm-none d-none'">
         <div class="d-flex">
           <div style="align-self:center" v-for="dat in InfoLink" :key="dat.id">
-            <div v-if="dat.id != 1">
+            <div v-if="dat.id == 3">
               <router-link class="black--text d-flex align-center mx-1" style="text-decoration:none" :to="dat.link">
                 <div v-if="dat.vista">
                   <img width="48px" :src="dat.imagen" alt="">
@@ -21,6 +21,16 @@
                   {{ dat.show }}
                 </div>
               </router-link>
+            </div>
+            <div v-if="dat.id == 2">
+              <div class="black--text d-flex align-center mx-1" style="text-decoration:none; cursor:pointer" @click="cambioUsuarioProfesional()">
+                <div v-if="dat.vista">
+                  <img width="48px" :src="dat.imagen" alt="">
+                </div>
+                <div v-if="dat.show && dat.vista" class="mx-1">
+                  {{ dat.show }}
+                </div>
+              </div>
             </div>
             <div v-if="dat.id == 1">
               <v-menu v-model="showMenu" absolute offset-y style="max-width: 600px">
@@ -110,6 +120,9 @@ export default {
     },
     cambioBarra() {
       emit.emit('cambio-barra', { cambio: true })
+    },
+    cambioUsuarioProfesional(){
+      emit.emit('cambio-usuario-profesional', {cambio:true})
     }
   },
 }

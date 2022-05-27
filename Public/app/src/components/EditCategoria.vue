@@ -21,7 +21,7 @@
 import CheckCategoria from './CheckCategoria.vue'
 import emmit from '@/services/emmit'
 export default {
-    name:'CambioProfesional',
+    name:'EditCategoria',
     components:{
         CheckCategoria
     },
@@ -31,20 +31,37 @@ export default {
                 {
                     id_categoria:1,
                     nombre_categoria:'Pintor',
-                    icono:'https://cdn-icons-png.flaticon.com/512/360/360484.png'
+                    icono:'https://cdn-icons-png.flaticon.com/512/360/360484.png',
+                    usuarios_cedula:12132
                 },
                 {
                     id_categoria:2,
                     nombre_categoria:'Pintor',
-                    icono:'https://cdn-icons-png.flaticon.com/512/360/360484.png'
+                    icono:'https://cdn-icons-png.flaticon.com/512/360/360484.png',
+                    usuarios_cedula:12132
+                },
+                {
+                    id_categoria:3,
+                    nombre_categoria:'Constructor',
+                    icono:'https://cdn-icons-png.flaticon.com/512/360/360484.png',
                 },
             ],
-            categoriasSelect:[]
+            categoriasSelect:[
+                1,2
+            ]
         }
     },
     methods:{
         guardar(){
             location.reload()
+        },
+        eliminarCategoria(id){
+            let indice =this.categorias.findIndex((ele)=>{
+                return ele.id_categoria == id
+            })
+            if(indice != -1){
+                this.categorias[indice].usuarios_cedula=null
+            }
         }
     },
     created(){
@@ -53,7 +70,10 @@ export default {
         }),
         emmit.on('quitar-categoria', (data)=>{
             let indice = this.categoriasSelect.indexOf(data.index)
-            if(indice != -1 ) this.categoriasSelect.splice(indice, 1)
+            if(indice != -1 ) {
+                this.categoriasSelect.splice(indice, 1)
+                this.eliminarCategoria(data.index)
+            }
         })
     }
 }
