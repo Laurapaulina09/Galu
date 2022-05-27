@@ -6,6 +6,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path:'/inicioSesion',
+    name:'InicioSesion',
+    component: () => import(/* webpackChunkName: "about" */ '../views/inicio.vue')
+  },
+  {
     path: '/',
     name: 'IndexUser',
     component: IndexUser

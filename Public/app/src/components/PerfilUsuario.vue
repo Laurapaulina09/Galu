@@ -3,7 +3,7 @@
         <v-col cols="12" sm="4" class="">
           <div class="d-flex justify-center align-center grey lighten-4 pa-4 rounded-lg" style="flex-direction:column">
             <v-avatar  size="200" class="my-1">
-              <img :src="datos.avatar" width="200px" alt="">
+              <img :src="'http://localhost:3000'+datos.avatar" width="200px" alt="">
             </v-avatar>
             <div style="position:relative; overflow:hidden; max-width: 175px;">
               <input @change="changeFoto" style="position:absolute;width:100%;height:40px; top:0px; left:0px;z-index: 1; opacity: 0;" type="file" name="imagen" id="">
@@ -23,6 +23,8 @@
             </v-text-field>
             <v-text-field v-model="datos.telefono" :counter="10" label="Telefono" type="number" required disabled>
             </v-text-field>
+            <v-text-field v-model="datos.celular" :counter="10" label="Celular" type="number" required disabled>
+                </v-text-field>
             <div class="text-center">
               <v-btn color="primary" @click="dialog= !dialog">
                 Editar <v-icon>mdi-pencil</v-icon>
@@ -39,7 +41,6 @@
               <div class="grey lighten-4 pa-4 rounded-lg">
                 <v-text-field v-model="datos.nombre" :counter="50" label="Nombre" required></v-text-field>
                 <v-text-field v-model="datos.correo" :counter="30" label="Email" required></v-text-field>
-                <v-text-field v-model="datos.cedula" :counter="10" label="Cedula" type="number" required></v-text-field>
                 <v-text-field v-model="datos.telefono" :counter="10" label="Telefono" type="number" required>
                 </v-text-field>
                 <v-text-field v-model="datos.celular" :counter="10" label="Celular" type="number" required>

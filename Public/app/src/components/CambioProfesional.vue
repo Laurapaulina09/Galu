@@ -46,8 +46,7 @@ export default {
                     },
                     body: JSON.stringify(dat)
                 })
-                    .then(response => response.json())
-                    .then(response => console.log(response))
+                    .then(() => location.reload())
             }
         },
         //location.reload()

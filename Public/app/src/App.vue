@@ -39,7 +39,7 @@
     <v-main>
       <router-view />
     </v-main>
-    <footer-app class="mt-6"></footer-app>
+    <footer-app class="mt-6" v-if="$route.path != '/inicioSesion'"></footer-app>
   </v-app>
 </template>
 <script>
@@ -80,6 +80,9 @@ export default {
     emmit.on('cambio-barra', ()=>{
       this.drawer = !this.drawer
     })
+    if(!localStorage.getItem('usuario')){
+      location.href="/#/inicioSesion"
+    }
   },
 };
 </script>

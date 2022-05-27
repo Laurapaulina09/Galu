@@ -6,7 +6,7 @@
                 <v-col cols="12" sm="4">
                     <div class="d-flex justify-center align-center grey lighten-4 pa-4 rounded-lg" style="flex-direction:column">
                         <v-avatar size="200">
-                            <img :src="datos.avatar" width="200px" alt="">
+                            <img :src="'http://localhost:3000'+datos.avatar" width="200px" alt="">
                         </v-avatar>
                         <v-rating
                         :value="datos.puntaje"
@@ -49,7 +49,7 @@
                     <div class="d-flex justify-center align-center grey lighten-4 pa-4 rounded-lg " style="flex-direction:column">
                         <div v-for="(d, i) in datos.experiencia" :key="i" class="ma-2" wid>
                             <v-btn class="mx-2 pa-1" fab dark large color="primary" >
-                                <img :src="d.icono">
+                                <img :src="'http://localhost:3000'+d.icono">
                             </v-btn>
                             <p class="text-center">{{d.nombre_categoria}}</p>
                         </div>
@@ -64,7 +64,7 @@
                         <br>
                         <div class="rounded-lg grey lighten-4 pa-4" style="width:100%">
                             <v-card v-for="(d, i) in datos.trabajosRealizados" :key="i" style="width:90%; margin:10px auto">
-                                <img :src="d.foto" width="100%" height="300px" style="object-fit:cover" alt="">
+                                <img :src="'http://localhost:3000'+d.foto" width="100%" height="300px" style="object-fit:cover" alt="">
                                 <div class="pa-3">
                                     {{d.descripcion}}
                                 </div>
@@ -159,7 +159,10 @@ export default {
                 },
                 body: JSON.stringify(datosCalificacion)
             })
-            .then(()=> this.buscarUsuario())
+            .then(()=> {
+                this.sheet= !this.sheet
+                this.buscarUsuario()
+            })
         }
     },
     created() {

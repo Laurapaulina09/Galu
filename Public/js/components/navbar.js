@@ -31,7 +31,7 @@ class CabeceraJn extends HTMLElement {
                   <a class="nav-link fw-bold" aria-current="page" href="/QS.html">Quienes somos</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fw-bold" aria-current="page" href="/login.html">Iniciar sesión</a>
+                  <a class="nav-link fw-bold" aria-current="page" href="http://localhost:8080">Iniciar sesión</a>
                 </li>
               </ul>
             </div>

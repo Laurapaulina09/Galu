@@ -1,7 +1,7 @@
 <template lang="">
     <div @click="select(categori.idCategorias)" style="cursor:pointer">
         <v-avatar color="white" size="100" >
-        <img :src="categori.icono" alt="">
+        <img :src="'http://localhost:3000'+categori.icono" alt="">
         <v-icon v-if="estado || categori.cedula" class="primary--text" style="position:absolute;font-size:50px">mdi-check-bold</v-icon>
         </v-avatar>
         <p class="align-center" style="text-align:center">{{categori.nombre_categoria}}</p>

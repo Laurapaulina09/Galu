@@ -12,7 +12,7 @@
             style="position:relative">
             <div v-for="(d, i) in datos.experiencia" :key="i" class="ma-2" wid>
               <v-btn class="mx-2 pa-1" fab dark large color="primary">
-                <img :src="d.icono">
+                <img :src="'http://localhost:3000'+d.icono">
               </v-btn>
               <p class="text-center">{{ d.nombre_categoria }}</p>
             </div>
@@ -45,7 +45,7 @@
                 </v-icon>
               </v-btn>
               <v-card v-for="(d, i) in datos.trabajosRealizados" :key="i" style="width:90%; margin:10px auto">
-                <img :src="d.foto" width="100%" height="300px" style="object-fit:cover" alt="">
+                <img :src="'http://localhost:3000'+d.foto" width="100%" height="300px" style="object-fit:cover" alt="">
                 <div class="pa-3">
                   {{ d.descripcion }}
                 </div>
@@ -193,7 +193,9 @@ export default {
     })
   },
   mounted() {
-    this.buscarUsuario()
+    if(!localStorage.getItem('usuario')){
+      location.href="/#/inicioSesion"
+    }else this.buscarUsuario()
   },
 }
 </script>
