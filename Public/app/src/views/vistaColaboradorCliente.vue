@@ -23,12 +23,12 @@
                         <v-list class="my-1">
                             <v-list-item style="display:grid; grid-template-columns:50px 1fr 1px">
                                 <v-img width="40px" src="https://cdn-icons-png.flaticon.com/512/174/174879.png"></v-img>
-                                <div>{{datos.telefono}}</div>
+                                <div>{{datos.celular}}</div>
                             </v-list-item>
                             <br>
                             <v-list-item style="display:grid; grid-template-columns:50px 1fr 1px">
-                                <v-img width="40px" src="https://www.philippes.com/wp-content/uploads/2017/01/email-icon.png"></v-img>
-                                <div>{{datos.email}}</div>
+                                <v-img width="40px" src="https://colegiocardenalsancha.edu.co/web_2020/images/Telefono-Icono.fw.png"></v-img>
+                                <div>{{datos.telefono}}</div>
                             </v-list-item>
                             <br>
                             <v-list-item style="display:grid; grid-template-columns:50px 1fr 1px">
@@ -72,6 +72,29 @@
                 </v-col>
             </v-row>
         </v-container>
+        <div class="text-center">
+    <v-btn color="blue" dark @click="sheet = !sheet">
+      Calificar al profesional
+    </v-btn>
+    <v-bottom-sheet v-model="sheet">
+      <v-sheet class="text-center" height="200px">
+        <div class="py-3">
+            <h3>CALIFICA MI TRABAJO</h3>
+          <v-rating
+            v-model="rating"
+            background-color="indigo lighten-3"
+            color="light-blue lighten-2"
+            size="50"
+            ></v-rating>
+            <div class="my-1">
+                <v-btn color="primary">
+                    Guardar
+                </v-btn>
+            </div>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
+  </div>
     </div>
 </template>
 <script>
@@ -83,13 +106,16 @@ export default {
     },
     data() {
         return {
+            rating:0,
+            sheet: false,
             datos: {
                 avatar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png',
                 nombre: 'Edwin Alexander Ibarra Ortiz',
                 email: 'ortizalexander2244@gmail.com',
                 puntaje: 3.5,
                 numVotantes: 20,
-                telefono: '3127362625',
+                celular: '3127362625',
+                telefono: '4992200',
                 descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque praesentium omnis quis pariatur exercitationem explicabo, expedita dignissimos nemo, porro iusto voluptate voluptatum dolore, ipsam voluptates provident aliquam ea fugit placeat!',
                 experiencia: [
                     {

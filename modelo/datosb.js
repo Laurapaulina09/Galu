@@ -2,8 +2,9 @@ var conectar = require("./conectdb")
 
 function Conexion() { }
 Conexion.almacenarUsuario = (datos, cb) => {
+    console.log(datos)
     let sql = `INSERT INTO usuarios VALUES (
-        "${datos.cedula}","${datos.nombre}","${datos.correo}",
+        ${datos.cedula},"${datos.nombre}","${datos.correo}",
         "${datos.contrasena}","${datos.telefono}","${datos.celular}",
         "${datos.avatar}","${datos.descripcion}",  "${datos.rol}")`;
     conectar.query(sql, function (err, res) {
@@ -16,13 +17,14 @@ Conexion.almacenarUsuario = (datos, cb) => {
 }
 
 Conexion.iniciarSession = (datos, cb) => {
-    let sql = `SELECT * FROM usuarios WHERE correo ="${datos.correo}"  and contraseña="${datos.contrasena}"`;
+    let sql = `SELECT cedula FROM usuarios WHERE correo ="${datos.correo}"  and contraseña="${datos.contrasena}"`;
     conectar.query(sql, function (err, res) {
         if (err) {
             console.log("ALERTA ERROR EN VERIFICAR USUARIO")
             console.log(err);
             throw err;
         } else {
+            console.log(res)
             cb(res)
         }
     })
@@ -30,7 +32,7 @@ Conexion.iniciarSession = (datos, cb) => {
 }
 
 Conexion.mostrarPerfil = (datos, cb) => {
-    let sql = `SELECT * FROM usuarios WHERE cedula =${datos.cedula}`;
+    let sql = `SELECT a.*, b.rol FROM usuarios a inner join rol b on a.rol_idrol=b.idrol WHERE cedula  =${datos.cedula}`;
     conectar.query(sql, function (err, res) {
         if (err) {
             console.log("CORREO NO ENCONTRADO")
@@ -131,7 +133,7 @@ Conexion.agregarExperiencia = (datosPosturlarse, cb) => {
     })
 }
 
-Conexion.getCategorias = (datos, cb) => {
+Conexion.getCategorias = (cb) => {
     let sql = `SELECT idCategorias,nombre_categoria,icono
     FROM categorias`;
     conectar.query(sql, function (err, res) {
@@ -143,7 +145,29 @@ Conexion.getCategorias = (datos, cb) => {
             cb(res)
         }
     })
-
+}
+Conexion.eliminarCategoria = (cedula, cb)=>{
+    conectar.query(`delete from experiencia where usuarios_cedula=${cedula}`, (err, respuesta)=>{
+        if (err) {
+            console.log("ALERTA OCURRIÓ UN ERROR BUSCANDO LAS CATEGORIAS")
+            console.log(err);
+            throw err;
+        } else {
+            cb(respuesta)
+        }
+    })
+}
+Conexion.guardarDescripcion = (datos, cb)=>{
+    conectar.query(`update usuarios set descripcion="${datos.descripcion}" where cedula=${datos.usuario}`, (err, respuesta)=>{
+        if (err) {
+            console.log("ALERTA OCURRIÓ UN ERROR BUSCANDO LAS CATEGORIAS")
+            console.log(err);
+            throw err;
+        } else {
+            console.log('respuesta')
+            cb(respuesta)
+        }
+    })
 }
 Conexion.getCategoriasParaTrabajador = (datos, cb) => {
     let sql = `SELECT idCategorias,nombre_categoria,icono
@@ -222,8 +246,8 @@ Conexion.almacenarImagenUsuario = (datos, cb) => {
 }
 
 Conexion.almacenarImagenTrabajoR = (datos, cb) => {
-    var sql = `INSERT INTO trab_realizado(foto,usuarios_cedula) 
-    VALUES ("${datos.foto}",${datos.cedula})`;
+    var sql = `INSERT INTO trab_realizado(foto,descripcion,usuarios_cedula) 
+    VALUES ("${datos.foto}","${datos.comentario}",${datos.cedula})`;
     console.log(sql)
     conectar.query(sql, function (err, res) {
         if (err) {

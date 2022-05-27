@@ -47,12 +47,12 @@
 
                 <v-list>
                   <v-list-item-group>
-                    <v-list-item v-for="(item, i) in listCategorias" :key="i">
+                    <v-list-item v-for="(item, i) in listCategorias" :key="i" @click="cambioUrl2(item.idCategorias)">
                       <v-list-item-icon>
-                        <v-icon v-text="item.icon"></v-icon>
+                        <img :src="'http://localhost:3000'+item.icono" alt="" srcset="">
                       </v-list-item-icon>
                       <v-list-item-content>
-                        <v-list-item-title v-text="item.title"></v-list-item-title>
+                        <v-list-item-title v-text="item.nombre_categoria"></v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>
                   </v-list-item-group>
@@ -98,25 +98,15 @@ export default {
           link: ''
         },
       ],
-      listCategorias: [
-        {
-          title: 'Carpintero',
-          icon:'mdi-alpha-c-circle'
-        },
-        {
-          title: 'Carpintero',
-          icon:'mdi-alpha-c-circle'
-        },
-        {
-          title: 'Carpintero',
-          icon:'mdi-alpha-c-circle'
-        },
-      ]
+      listCategorias: null
     }
   },
   methods: {
     cambioUrl() {
       location.href = '/#/inicioSesion'
+    },
+    cambioUrl2(id){
+      location.href='/#/categoria/'+id
     },
     cambioBarra() {
       emit.emit('cambio-barra', { cambio: true })
@@ -124,6 +114,11 @@ export default {
     cambioUsuarioProfesional(){
       emit.emit('cambio-usuario-profesional', {cambio:true})
     }
+  },
+  created() {
+    fetch('http://localhost:3000/listCategorias/')
+    .then(respuesta=> respuesta.json())
+    .then(respuesta=> this.listCategorias=respuesta)
   },
 }
 </script>

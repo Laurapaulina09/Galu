@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `db_galu`.`usuarios` (
   `nombre` VARCHAR(100) NOT NULL,
   `correo` VARCHAR(50) NOT NULL,
   `contraseña` VARCHAR(20) NOT NULL,
-  `telefono` INT NULL,
-  `celular` INT NULL,
+  `telefono` VARCHAR(15) NULL,
+  `celular` VARCHAR(15) NULL,
   `avatar` VARCHAR(100) NULL,
   `descripcion` VARCHAR(200) NULL,
   `rol_idrol` INT NOT NULL,
@@ -118,6 +118,11 @@ CREATE TABLE IF NOT EXISTS `db_galu`.`calificacion` (
     ON UPDATE NO ACTION)
 ;
 
+ALTER TABLE `db_galu`.`usuarios` 
+CHANGE COLUMN `telefono` `telefono` VARCHAR(15) NULL DEFAULT NULL ;
+
+ALTER TABLE `db_galu`.`usuarios` 
+CHANGE COLUMN `celular` `celular` VARCHAR(15) NULL DEFAULT NULL ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

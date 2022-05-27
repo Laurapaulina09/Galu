@@ -1,8 +1,8 @@
 <template lang="">
-    <div @click="select(categori.id_categoria)" style="cursor:pointer">
+    <div @click="select(categori.idCategorias)" style="cursor:pointer">
         <v-avatar color="white" size="100" >
-        <img :src="categori.icono" alt="">
-        <v-icon v-if="estado || categori.usuarios_cedula" class="primary--text" style="position:absolute;font-size:50px">mdi-check-bold</v-icon>
+        <img :src="'http://localhost:3000'+categori.icono" alt="">
+        <v-icon v-if="estado || categori.cedula" class="primary--text" style="position:absolute;font-size:50px">mdi-check-bold</v-icon>
         </v-avatar>
         <p class="align-center" style="text-align:center">{{categori.nombre_categoria}}</p>
     </div>
@@ -14,7 +14,7 @@ export default {
     props:['categori'],
     data(){
         return{
-            estado:this.categori.usuarios_cedula ? true : false
+            estado:this.categori.cedula ? true : false
         }
     },
     methods: {

@@ -1,24 +1,24 @@
 -- Tabla rol
-INSERT INTO `rol` ( `rol`) VALUES ('Administrador'), ( 'Cliente'), ('Profesional');
+INSERT INTO `rol` ( `rol`) VALUES ('administrador'), ( 'cliente'), ('profesional');
 
 
 INSERT INTO categorias(nombre_categoria,icono,descripcion) values(
-"Carpintero","Public\\\img\\\icono_carpintero_thumb.svg",""
+"Carpintero","\\\img\\\icono_carpintero_thumb.svg",""
 );
 
 INSERT INTO categorias(nombre_categoria,icono,descripcion) values(
-"Electricista","Public\\\img\\\icono_electricista_thumb.svg",""
+"Electricista","\\\img\\\icono_electricista_thumb.svg",""
 );
 INSERT INTO categorias(nombre_categoria,icono,descripcion) values(
-"Pintor","Public\\\img\\\icono_pintor_thumb.svg",""
+"Pintor","\\\img\\\icono_pintor_thumb.svg",""
 );
 INSERT INTO categorias(nombre_categoria,icono,descripcion) values(
-"Plomero","Public\\\img\\\icono_plomero_thumb.svg",""
+"Plomero","\\\img\\\icono_plomero_thumb.svg",""
 );
 INSERT INTO categorias(nombre_categoria,icono,descripcion) values(
-"Reformas","Public\\\img\\\reformas_ico5_thumb.svg",""
+"Reformas","\\\img\\\reformas_ico5_thumb.svg",""
 );
 
 INSERT INTO categorias(nombre_categoria,icono,descripcion) values(
-"Tecnico","Public\img\icono_tecnico_thumb.svg",""
+"Tecnico","\img\icono_tecnico_thumb.svg",""
 );

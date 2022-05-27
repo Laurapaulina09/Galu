@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="datos != null">
     <nav-bar :verHamburguesa="datos.rol == 'profesional' ? 'false' : ''"
       :categoria="datos.rol == 'profesional' ? 'false' : ''" :nosotros="datos.rol == 'profesional' ? 'false' : ''"
       :perfil="datos.rol == 'true' ? 'false' : ''" :nombreColaborador="datos.rol == 'profesional' ? datos.nombre : ''">
@@ -12,9 +12,9 @@
             style="position:relative">
             <div v-for="(d, i) in datos.experiencia" :key="i" class="ma-2" wid>
               <v-btn class="mx-2 pa-1" fab dark large color="primary">
-                <img :src="d.icono">
+                <img :src="'http://localhost:3000'+d.icono">
               </v-btn>
-              <p class="text-center">{{ d.nombre }}</p>
+              <p class="text-center">{{ d.nombre_categoria }}</p>
             </div>
             <v-btn class="mx-2" fab dark small color="teal accent-4" style="position:absolute;top:6px;right: 0px;"
               @click="editarCategoria = true">
@@ -45,7 +45,7 @@
                 </v-icon>
               </v-btn>
               <v-card v-for="(d, i) in datos.trabajosRealizados" :key="i" style="width:90%; margin:10px auto">
-                <img :src="d.foto" width="100%" height="300px" style="object-fit:cover" alt="">
+                <img :src="'http://localhost:3000'+d.foto" width="100%" height="300px" style="object-fit:cover" alt="">
                 <div class="pa-3">
                   {{ d.descripcion }}
                 </div>
@@ -68,12 +68,12 @@
           </v-card-title>
 
           <v-col cols="12">
-            <v-textarea name="input-7-1" label="Descripcion" :value="datos.descripcion" hint="Editar"></v-textarea>
+            <v-textarea name="input-7-1" label="Descripcion" v-model="datos.descripcion" hint="Editar"></v-textarea>
           </v-col>
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="dialog = false">
+            <v-btn color="primary" text @click="guardarDescripcion">
               I accept
             </v-btn>
           </v-card-actions>
@@ -94,7 +94,7 @@
 
 
 <!-- Editar categorias -->
-    <edit-categoria v-if="editarCategoria">
+    <edit-categoria v-if="editarCategoria" :categoriaSelect="datos.experiencia">
       <template slot="cerrar">
         <v-btn small color="error" fab style="position: absolute;top: 6px;right: 0px;" @click="editarCategoria = false">
           <v-icon>mdi-close</v-icon>
@@ -135,7 +135,7 @@ export default {
       viewCambioProfesional: false,
       editarCategoria: false,
       agregarFotoTrabajo:false,
-      datos: {
+      datos:null /*{
         avatar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png',
         nombre: 'Edwin Alexander Ibarra',
         email: 'ortizalexander2244@gmail.com',
@@ -164,13 +164,33 @@ export default {
             descripcion: 'Fachada de vivienda ubicada en las afueras de la ciudad de Medellín'
           }
         ]
-      }
+      }*/
+    }
+  },
+  methods: {
+    buscarUsuario(){ 
+      fetch('http://localhost:3000/verPerfil/'+localStorage.getItem('usuario'))
+      .then(dat=> dat.json())
+      .then(dat=> this.datos=dat)
+    },
+    guardarDescripcion(){
+      fetch('http://localhost:3000/guardarDescripcion/'+localStorage.getItem('usuario'), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({descripcion:this.datos.descripcion})
+            })
+            .then(() => this.dialog=false)
     }
   },
   created() {
     emmit.on('cambio-usuario-profesional', () => {
       this.viewCambioProfesional = true
     })
+  },
+  mounted() {
+    this.buscarUsuario()
   },
 }
 </script>

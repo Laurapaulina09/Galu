@@ -1,10 +1,11 @@
 //llamar paquetes
 const express=require("express"),
-    reload = require('reload'),
+    cors = require('cors'),
     rutas = require('./Rutas/rutas.js'),
     app=express(),
     puerto=3000
     
+app.use(cors())
 //Se pone al descubierto la carpeta publica
 app.use(express.static(__dirname+'/Public'))
 
@@ -15,14 +16,10 @@ app.use(express.json())
 app.use(rutas)
 
 //Reload para refrescar cambios
-reload(app).then((reloadReturned)=>{
-    //Se inicializa el servidor
 app.listen(puerto,()=>{
     console.log("Servidor inicializado")
     })
-}).catch((err)=>{
-    console.log(err)
-})
+
 
 
 

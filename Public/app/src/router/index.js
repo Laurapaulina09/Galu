@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/inicio',
+    path: '/',
     name: 'IndexUser',
     component: IndexUser
   },

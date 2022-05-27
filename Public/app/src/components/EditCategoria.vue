@@ -21,82 +21,116 @@
 import CheckCategoria from './CheckCategoria.vue'
 import emmit from '@/services/emmit'
 export default {
-    name:'EditCategoria',
-    components:{
+    name: 'EditCategoria',
+    components: {
         CheckCategoria
     },
-    data(){
-        return{
-            categorias:[
+    props: ['categoriaSelect'],
+    data() {
+        return {
+            categorias: [
                 {
-                    id_categoria:1,
-                    nombre_categoria:'Pintor',
-                    icono:'https://cdn-icons-png.flaticon.com/512/360/360484.png',
-                    usuarios_cedula:12132
+                    id_categoria: 1,
+                    nombre_categoria: 'Pintor',
+                    icono: 'https://cdn-icons-png.flaticon.com/512/360/360484.png',
+                    usuarios_cedula: 12132
                 },
                 {
-                    id_categoria:2,
-                    nombre_categoria:'Pintor',
-                    icono:'https://cdn-icons-png.flaticon.com/512/360/360484.png',
-                    usuarios_cedula:12132
+                    id_categoria: 2,
+                    nombre_categoria: 'Pintor',
+                    icono: 'https://cdn-icons-png.flaticon.com/512/360/360484.png',
+                    usuarios_cedula: 12132
                 },
                 {
-                    id_categoria:3,
-                    nombre_categoria:'Constructor',
-                    icono:'https://cdn-icons-png.flaticon.com/512/360/360484.png',
+                    id_categoria: 3,
+                    nombre_categoria: 'Constructor',
+                    icono: 'https://cdn-icons-png.flaticon.com/512/360/360484.png',
                 },
             ],
-            categoriasSelect:[
-                1,2
+            categoriasSelect: [
+
             ]
         }
     },
-    methods:{
-        guardar(){
-            location.reload()
-        },
-        eliminarCategoria(id){
-            let indice =this.categorias.findIndex((ele)=>{
-                return ele.id_categoria == id
-            })
-            if(indice != -1){
-                this.categorias[indice].usuarios_cedula=null
+    methods: {
+        guardar() {
+            let dat ={
+                cedula: localStorage.getItem('usuario'),
+                experiencia: this.categoriasSelect
             }
-        }
+            fetch('http://localhost:3000/agregarExperiencia', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dat)
+            })
+            .then(()=> location.reload())
+            //location.reload()
+        },
+        eliminarCategoria(id) {
+            console.log('quitar', id)
+            let indic = this.categorias.findIndex((ele) => ele.idCategorias === id)
+            if (indic != -1) {
+                this.categorias[indic].cedula = null
+            }
+        },
+        buscaListaCategorias() {
+            fetch('http://localhost:3000/listCategorias/')
+                .then(respuesta => respuesta.json())
+                .then((respuesta) => {
+                    this.categorias = respuesta
+                    for (let i = 0; i < this.categoriaSelect.length; i++) {
+                        let indiceSelect = this.categoriaSelect[i].Categorias_idCategorias;
+                        let elemento = this.categorias.map(element => {
+                            if (element.idCategorias == indiceSelect) {
+                                this.categoriasSelect.push(indiceSelect)
+                                element.cedula = localStorage.getItem('usuario')
+                            }
+                            return element
+                        });
+                        this.categorias = elemento
+                    }
+                })
+        },
     },
-    created(){
-        emmit.on('agregar-categoria', (data)=>{
+    created() {
+        this.buscaListaCategorias()
+        emmit.on('agregar-categoria', (data) => {
             this.categoriasSelect.push(data.index)
         }),
-        emmit.on('quitar-categoria', (data)=>{
-            let indice = this.categoriasSelect.indexOf(data.index)
-            if(indice != -1 ) {
-                this.categoriasSelect.splice(indice, 1)
-                this.eliminarCategoria(data.index)
-            }
-        })
+            emmit.on('quitar-categoria', (data) => {
+                console.log(data)
+                let indice = this.categoriasSelect.indexOf(data.index)
+                if (indice != -1) {
+                    this.categoriasSelect.splice(indice, 1)
+                    this.eliminarCategoria(data.index)
+                }
+            })
     }
 }
 </script>
 <style scoped>
-    .cambio-profesional{
-        position:fixed;
-        top: 0px;
-        left:0px;
-        width:100%;
-        height:100vh;
-        z-index:5;
-        background-color: rgba(0, 0, 0, 0.3);
-    }
-    .cambio-profesional>div{
-        width:90%;
-        max-width:450px;
-        align-self: center;
-        background-color: #6DBFE2;
-        max-height: 500px;
-        overflow-y: scroll;
-    }
-    .cambio-profesional>div::-webkit-scrollbar{
-        width:8px
-    }
+.cambio-profesional {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.cambio-profesional>div {
+    width: 90%;
+    max-width: 450px;
+    align-self: center;
+    background-color: #6DBFE2;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.cambio-profesional>div::-webkit-scrollbar {
+    width: 8px
+}
 </style>

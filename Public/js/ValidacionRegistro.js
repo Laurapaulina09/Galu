@@ -44,16 +44,16 @@ function checkInputs() {
   nombre = document.getElementById('Regnombre');
   correo = document.getElementById('RegCorreo');
   password = document.getElementById('RegPassword');
-  Telefono = document.getElementById('RegTlf');
+  celular = document.getElementById('RegCelular');
   Error_element = document.getElementById('Error');
   const username = nombre.value;
   const email = correo.value;
   const passwd = password.value;
-  const tlf = Telefono.value.trim();
+  const tlf = celular.value.trim();
   let NombreOK = validateName(nombre.value.trim());
   let emailOk = validateEmail(correo.value.trim());
   let passwdOk = validatePassword(password.value.trim());
-  let tlfOK = validateTlf(Telefono.value.trim());
+  let tlfOK = validateTlf(celular.value.trim());
   if (!NombreOK) {
     setErrorForm(nombre, "Nombre debe tener 3 carácteres o más")
   } else {
@@ -70,21 +70,24 @@ function checkInputs() {
     setSucessForm(password)
   }
   if (!tlfOK) {
-    setErrorForm(Telefono, "un número de teléfono válido")
+    setErrorForm(celular, "un número de teléfono válido")
   } else {
-    setSucessForm(Telefono)
+    setSucessForm(celular)
   }
   if (NombreOK && emailOk && passwdOk && tlfOK) {
-    CreateJson(nombre, correo, password, Telefono)
+    CreateJson(nombre, correo, password, celular)
   }
 }
 function CreateJson(username, email, passwd, phone) {
   var FormSucessfull = {
     nombre: username.value,
     correo: email.value,
-    contrasena: passwd.value,
-    telefono: phone.value,
+    celular: phone.value,
+    telefono:document.getElementById('RegTlf').value,
+    cedula:document.getElementById('RegCedula').value,
+    contrasena: passwd.value
   }
+  console.log(FormSucessfull)
   // console.log(FormSucessfull);
   var send_Form=enviarFormulario(FormSucessfull);
   if (send_Form='usuario Registrado')
@@ -92,20 +95,20 @@ function CreateJson(username, email, passwd, phone) {
     window.location="/login.html"
   } else{
     alert("No se pudo completar el registro")
-  } 
+  }
 }
 function setErrorForm(input, message) {
   const formControl = input.parentElement;
   const smallError = document.querySelector('small');
   //smallError.innerText = message;
   alert(message);
-  formControl.classList.add('input-contenedor');
-  formControl.className = 'input-contenedor small';
+  //formControl.classList.add('input-contenedor');
+  //formControl.className = 'input-contenedor small';
 }
 function setSucessForm(input) {
   const formControl = input.parentElement;
-  formControl.classList.add('input-contenedor');
-  formControl.className = 'input-contenedor sucess';
+  //formControl.classList.add('input-contenedor');
+  //formControl.className = 'input-contenedor sucess';
 }
 async function enviarFormulario(data) {
   // Opciones por defecto estan marcadas con un *

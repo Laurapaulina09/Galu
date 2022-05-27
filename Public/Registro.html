@@ -32,7 +32,6 @@
                 <input type="text" id="Regnombre" autocomplete="off" placeholder="Nombre Completo" required>
                 <small>Error</small>
             </div>
-
             <div class="input-contenedor-one">
                 <div>
                     <i class="fas fa-envelope icon"></i>
@@ -42,16 +41,30 @@
             </div>
             <div class="input-contenedor-one">
                 <div>
-                    <i class="fas fa-key icon"></i>
+                    <i class="fas fa-solid fa-phone icon"></i>
                 </div>
-                <input type="password" id="RegPassword" autocomplete="off" placeholder="Contraseña" required>
+                <input type="number" id="RegTlf" minlength="7" autocomplete="off" placeholder="Teléfono">
                 <small>Error</small>
             </div>
             <div class="input-contenedor-one">
                 <div>
-                    <i class="fas fa-solid fa-phone icon"></i>
+                    <i class="fas fa-solid fa-mobile icon"></i>
                 </div>
-                <input type="text" id="RegTlf" autocomplete="off" placeholder="Teléfono" required>
+                <input type="number" id="RegCelular" minlength="10" autocomplete="off" placeholder="Celular" required>
+                <small>Error</small>
+            </div>
+            <div class="input-contenedor-one">
+                <div>
+                    <i class="fas fa-solid fa-address-card icon"></i>
+                </div>
+                <input type="number" maxlength="11" minlength="7" id="RegCedula" autocomplete="off" placeholder="Cedula" required>
+                <small>Error</small>
+            </div>
+            <div class="input-contenedor-one">
+                <div>
+                    <i class="fas fa-key icon"></i>
+                </div>
+                <input type="password" id="RegPassword" autocomplete="off" placeholder="Contraseña" required>
                 <small>Error</small>
             </div>
             <input type="submit" id="RegButtom" value="Registrarse" class="button">
