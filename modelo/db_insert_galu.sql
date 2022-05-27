@@ -20,5 +20,5 @@ INSERT INTO categorias(nombre_categoria,icono,descripcion) values(
 );
 
 INSERT INTO categorias(nombre_categoria,icono,descripcion) values(
-"Tecnico","\img\icono_tecnico_thumb.svg",""
+"Tecnico","\\\img\\\icono_tecnico_thumb.svg",""
 );

@@ -73,7 +73,7 @@ export default {
     },
 }
 </script>
-<style scoped>
+<style>
 .bg {
     animation: slide 3s ease-in-out infinite alternate;
     background-image: linear-gradient(-60deg, rgb(238, 235, 235) 50%, rgb(199, 228, 248) 50%);
