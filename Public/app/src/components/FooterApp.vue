@@ -1,7 +1,7 @@
 <template>
   <v-footer dark padless>
     <v-fab-transition>
-      <v-btn v-show="!hidden" color="pink" dark absolute top right fab  style="position:fixed; top:80%;right:10px">
+      <v-btn color="pink" dark absolute top right fab  style="position:fixed; top:80%;right:10px">
         <v-icon @click="cerrar">mdi-account-minus-outline </v-icon>
       </v-btn>
     </v-fab-transition>
