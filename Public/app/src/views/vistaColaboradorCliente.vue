@@ -1,11 +1,13 @@
 <template lang="">
     <div>
         <nav-bar verHamburguesa="true" categoria="false" nosotros="false" perfil="false"></nav-bar>
-        <v-container class="my-2">
+        <v-container class="my-2" v-if="datos != null">
             <v-row>
                 <v-col cols="12" sm="4">
                     <div class="d-flex justify-center align-center grey lighten-4 pa-4 rounded-lg" style="flex-direction:column">
-                        <img :src="datos.avatar" width="200px" alt="">
+                        <v-avatar size="200">
+                            <img :src="'http://localhost:3000'+datos.avatar" width="200px" alt="">
+                        </v-avatar>
                         <v-rating
                         :value="datos.puntaje"
                         color="amber"
@@ -33,7 +35,7 @@
                             <br>
                             <v-list-item style="display:grid; grid-template-columns:50px 1fr 1px">
                                 <v-img width="40px" src="https://www.philippes.com/wp-content/uploads/2017/01/email-icon.png"></v-img>
-                                <div>{{datos.email}}</div>
+                                <div>{{datos.correo}}</div>
                             </v-list-item>
                         </v-list>
                         <div>
@@ -47,9 +49,9 @@
                     <div class="d-flex justify-center align-center grey lighten-4 pa-4 rounded-lg " style="flex-direction:column">
                         <div v-for="(d, i) in datos.experiencia" :key="i" class="ma-2" wid>
                             <v-btn class="mx-2 pa-1" fab dark large color="primary" >
-                                <img :src="d.icono">
+                                <img :src="'http://localhost:3000'+d.icono">
                             </v-btn>
-                            <p class="text-center">{{d.nombre}}</p>
+                            <p class="text-center">{{d.nombre_categoria}}</p>
                         </div>
                     </div>
                 </v-col>
@@ -62,7 +64,7 @@
                         <br>
                         <div class="rounded-lg grey lighten-4 pa-4" style="width:100%">
                             <v-card v-for="(d, i) in datos.trabajosRealizados" :key="i" style="width:90%; margin:10px auto">
-                                <img :src="d.foto" width="100%" height="300px" style="object-fit:cover" alt="">
+                                <img :src="'http://localhost:3000'+d.foto" width="100%" height="300px" style="object-fit:cover" alt="">
                                 <div class="pa-3">
                                     {{d.descripcion}}
                                 </div>
@@ -73,7 +75,7 @@
             </v-row>
         </v-container>
         <div class="text-center">
-    <v-btn color="blue" dark @click="sheet = !sheet">
+    <v-btn v-if="vistaBtn" color="blue" dark @click="sheet = !sheet">
       Calificar al profesional
     </v-btn>
     <v-bottom-sheet v-model="sheet">
@@ -87,7 +89,7 @@
             size="50"
             ></v-rating>
             <div class="my-1">
-                <v-btn color="primary">
+                <v-btn color="primary" @click="agregarCalificacion">
                     Guardar
                 </v-btn>
             </div>
@@ -106,9 +108,10 @@ export default {
     },
     data() {
         return {
-            rating:0,
+            vistaBtn: this.$route.params.profesional != localStorage.getItem('usuario'),
+            rating: 0,
             sheet: false,
-            datos: {
+            datos: null/*{
                 avatar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png',
                 nombre: 'Edwin Alexander Ibarra Ortiz',
                 email: 'ortizalexander2244@gmail.com',
@@ -133,8 +136,34 @@ export default {
                         descripcion: 'Fachada de vivienda ubicada en las afueras de la ciudad de Medellín'
                     }
                 ]
-            }
+            }*/
         }
+    },
+    methods: {
+        buscarUsuario() {
+            fetch('http://localhost:3000/verPerfil/' + this.$route.params.profesional)
+                .then(dat => dat.json())
+                .then(dat => this.datos = dat)
+        },
+        agregarCalificacion(){
+            let datosCalificacion = {
+                puntos: this.rating,
+                comentario: '',
+                cc_cliente: localStorage.getItem('usuario'),
+                cc_profesional: this.$route.params.profesional
+            }
+            fetch('http://localhost:3000/calificar', {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datosCalificacion)
+            })
+            .then(()=> this.buscarUsuario())
+        }
+    },
+    created() {
+        this.buscarUsuario()
     },
 }
 </script>

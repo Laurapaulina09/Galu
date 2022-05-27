@@ -196,6 +196,7 @@ router
             cc_cliente: req.body.cc_cliente,
             cc_profesional: req.body.cc_profesional
         }
+        console.log(datos)
         conectar.almacenarCalificacion(datos, (calificacion) => {
             res.send('Calificacion agregada')
         })
@@ -203,6 +204,8 @@ router
     .get('/listCategorias', (req, res) => {
         conectar.getCategorias(respuesta => res.status(200).send(respuesta))
     })
-
+    .get('/getUserCategoria/:idCategoria', (req,res)=>{
+        conectar.getUserCategoria(req.params.idCategoria, (respuesta)=> res.json(respuesta))
+    })
 //Falta encryptar contraseña con bcrypt
 module.exports = router

@@ -32,7 +32,9 @@ Conexion.iniciarSession = (datos, cb) => {
 }
 
 Conexion.mostrarPerfil = (datos, cb) => {
-    let sql = `SELECT a.*, b.rol FROM usuarios a inner join rol b on a.rol_idrol=b.idrol WHERE cedula  =${datos.cedula}`;
+    let sql = `select a.*, sum(b.puntos)/count(*) as puntaje, count(*) as numVotantes from usuarios a left join calificacion b on a.cedula = cc_profesional 
+    where cedula=${datos.cedula} group by cedula, nombre, correo, 
+    contraseña, telefono, celular, avatar, descripcion,rol_idrol`;
     conectar.query(sql, function (err, res) {
         if (err) {
             console.log("CORREO NO ENCONTRADO")
@@ -308,6 +310,21 @@ Conexion.almacenarCalificacion = (datos, cb) => {
             console.log(err)
         } else {
             cb()
+        }
+    })
+}
+Conexion.getUserCategoria = (id, cb)=>{
+    let sql = `select a.*, sum(b.puntos)/count(*) as puntaje, count(*) as numVotantes from usuarios a 
+    left join calificacion b on a.cedula = cc_profesional
+    inner join experiencia c on a.cedula = c.usuarios_cedula
+    where c.Categorias_idCategorias=${id}
+    group by cedula, nombre, correo, 
+    contraseña, telefono, celular, avatar, descripcion,rol_idrol`
+    conectar.query(sql, function (err, res) {
+        if (err) {
+            console.log(err)
+        } else {
+            cb(res)
         }
     })
 }

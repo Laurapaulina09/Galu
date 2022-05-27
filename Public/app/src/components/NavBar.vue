@@ -48,12 +48,14 @@
                 <v-list>
                   <v-list-item-group>
                     <v-list-item v-for="(item, i) in listCategorias" :key="i" @click="cambioUrl2(item.idCategorias)">
-                      <v-list-item-icon>
+                    <router-link :to="'/categoria/'+item.idCategorias">
+<v-list-item-icon>
                         <img :src="'http://localhost:3000'+item.icono" alt="" srcset="">
                       </v-list-item-icon>
                       <v-list-item-content>
                         <v-list-item-title v-text="item.nombre_categoria"></v-list-item-title>
                       </v-list-item-content>
+                    </router-link>
                     </v-list-item>
                   </v-list-item-group>
                 </v-list>
